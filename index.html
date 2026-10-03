@@ -4,82 +4,146 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nadeem Ahmed — Mortgage Coach | ML Mortgage Corp</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --baby:#cfe3f5; --baby-deep:#b9d6ef;
-    --navy:#0f172a; --navy-deep:#07111f;
-    --gold:#d4a017; --green:#14b87a; --green-dark:#0e9a64;
-    --muted:#475569; --line:#dbe7f3; --white:#ffffff;
+    --marble-hi:#f2ece0; --marble-lo:#ddd2ba;
+    --ink:#23272e; --ml-green:#1e8a4c;
+    --navy:#141b28; --navy-deep:#0e1420;
+    --brown:#8b5e34;
+    --baby:#bcd7ee; --baby-deep:#a9c9e6;
+    --gold:#d4a017;
+    --peach:#f2dcb8; --slate-tile:#222a36;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{font-family:Inter,system-ui,sans-serif; background:var(--white); color:var(--navy); -webkit-font-smoothing:antialiased; overflow-x:hidden;}
-  .wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
-  h1,h2,.brand{font-family:Manrope,Inter,sans-serif;}
-  /* rate ticker (replaces red ribbon) */
-  .ticker{background:var(--navy-deep); color:#fff; font-size:13px; letter-spacing:.05em;}
-  .ticker .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:11px; padding-bottom:11px; gap:12px; flex-wrap:wrap;}
+  body{font-family:Inter,system-ui,sans-serif; background:#0e1420; color:var(--ink); -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  .wrap{max-width:1200px; margin:0 auto; padding:0 28px;}
+  .serif{font-family:'Playfair Display',Georgia,serif;}
+
+  /* ============ MARBLE WALL + 3D SIGN ============ */
+  .sign-wall{
+    position:relative; overflow:hidden;
+    background:
+      repeating-linear-gradient(118deg, rgba(120,105,80,.07) 0 2px, transparent 2px 11px),
+      repeating-linear-gradient(63deg, rgba(120,105,80,.06) 0 1px, transparent 1px 8px),
+      repeating-linear-gradient(155deg, rgba(255,255,255,.25) 0 3px, transparent 3px 14px),
+      linear-gradient(180deg, var(--marble-hi) 0%, #e9e0cc 55%, var(--marble-lo) 100%);
+    padding:44px 0 40px; text-align:center;
+  }
+  .sign-row{display:flex; align-items:center; justify-content:center; gap:26px;}
+  .sign-logo{width:104px; height:104px; filter:drop-shadow(0 4px 6px rgba(0,0,0,.35));}
+  .sign-text{
+    font-family:'Playfair Display',Georgia,serif; font-weight:800;
+    font-size:clamp(40px,7vw,84px); letter-spacing:.04em; color:#2a2f37; line-height:1;
+    text-shadow:
+      0 1px 0 #fdfbf6, 0 2px 0 #e8e0cf, 0 3px 0 #d3c8ae,
+      0 4px 0 #bcb094, 0 5px 0 #a89d82, 0 6px 14px rgba(0,0,0,.4);
+  }
+  .sign-text .ml3d{color:var(--ml-green);
+    text-shadow:
+      0 1px 0 #eafff3, 0 2px 0 #bfe3cd, 0 3px 0 #9ccba9,
+      0 4px 0 #7db389, 0 5px 0 #5f9a6c, 0 6px 14px rgba(0,0,0,.4);
+  }
+  .sign-tag{
+    margin-top:14px; font-family:'Playfair Display',Georgia,serif;
+    font-size:clamp(17px,2.4vw,26px); font-weight:600; color:#3a3f47; letter-spacing:.02em;
+    text-shadow:0 1px 0 rgba(255,255,255,.7);
+  }
+
+  /* ============ NAV ============ */
+  nav{background:var(--navy); border-top:1px solid rgba(255,255,255,.08);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:15px; padding-bottom:15px;}
+  .nav-brand{font-weight:800; font-size:16px; letter-spacing:.06em; color:#fff;}
+  .nav-brand .g{color:#2fbf71;}
+  .nav-links{display:flex; align-items:center; gap:30px;}
+  .nav-links a.nl{color:#d7dce6; text-decoration:none; font-weight:600; font-size:15px;}
+  .nav-links a.nl:hover{color:#fff;}
+  .nav-cta{background:var(--brown); color:#fff; text-decoration:none; padding:11px 24px; border-radius:999px; font-weight:700; font-size:14px;}
+  .nav-cta:hover{background:#74491f;}
+
+  /* ============ RATE TICKER (replaces red ribbon) ============ */
+  .ticker{background:var(--navy-deep); border-top:1px solid rgba(255,255,255,.07); color:#fff; font-size:13.5px; letter-spacing:.04em;}
+  .ticker .wrap{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; padding-top:12px; padding-bottom:12px;}
   .ticker strong{color:var(--gold); font-weight:800;}
-  .ticker .trust{color:#9aa5c8;}
-  /* nav */
-  nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.94); backdrop-filter:blur(12px); border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:14px; padding-bottom:14px;}
-  .brand{font-weight:800; font-size:17px; color:var(--navy); letter-spacing:-.01em;}
-  .brand .ml{color:var(--green-dark);}
-  .nav-links{display:flex; gap:26px; align-items:center;}
-  .nav-links a.nl{color:var(--navy); text-decoration:none; font-weight:600; font-size:15px;}
-  .nav-links a.nl:hover{color:var(--green-dark);}
-  .nav-cta{background:var(--green); color:#fff; text-decoration:none; padding:11px 22px; border-radius:999px; font-weight:700; font-size:14px;}
-  .nav-cta:hover{background:var(--green-dark);}
-  /* hero — baby blue, dark navy text */
-  .hero{position:relative; background:linear-gradient(180deg, var(--baby) 0%, #e2eef9 100%); overflow:hidden; min-height:88vh; display:flex; align-items:center;}
-  #houses{position:absolute; inset:0; width:100%; height:100%; pointer-events:none;}
-  .hero .wrap{position:relative; z-index:2; display:grid; grid-template-columns:1.05fr .95fr; gap:24px; align-items:center; padding-top:64px; padding-bottom:64px; width:100%;}
-  .eyebrow{display:inline-block; font-size:13px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--green-dark); margin-bottom:20px;}
-  h1{font-size:clamp(42px,6.5vw,88px); line-height:1.0; letter-spacing:-.03em; font-weight:800; color:var(--navy);}
-  h1 .line{display:block; overflow:hidden;}
-  h1 .line > span{display:block; transform:translateY(110%); animation:riseUp .9s cubic-bezier(.23,1,.32,1) forwards;}
-  h1 .line:nth-child(2) > span{animation-delay:.12s;}
-  h1 .line:nth-child(3) > span{animation-delay:.24s;}
+  .ticker .trust{color:#8b94a7;}
+
+  /* ============ HERO: blue panel + chrome M gate ============ */
+  .hero{position:relative; overflow:hidden;
+    background:
+      repeating-linear-gradient(118deg, rgba(120,105,80,.06) 0 2px, transparent 2px 12px),
+      linear-gradient(180deg, #e7dcc6 0%, #ded2b8 100%);
+    padding:0 0 0;
+  }
+  .hero-stage{position:relative; max-width:1240px; margin:0 auto; min-height:86vh;}
+  .blue-panel{
+    position:absolute; left:50%; top:0; transform:translateX(-50%);
+    width:min(880px, 92%); height:100%;
+    background:linear-gradient(180deg, var(--baby) 0%, var(--baby-deep) 100%);
+    box-shadow:0 0 60px rgba(0,0,0,.18), inset 0 0 80px rgba(255,255,255,.35);
+    overflow:hidden;
+  }
+  #houses{position:absolute; inset:0; width:100%; height:100%;}
+  .hero-copy{position:absolute; top:34px; left:0; right:0; text-align:center; z-index:3; padding:0 40px;}
+  .hero-copy h1{
+    font-family:'Playfair Display',Georgia,serif; font-weight:800;
+    font-size:clamp(30px,4.6vw,58px); letter-spacing:.02em; color:#22303f; line-height:1.12;
+  }
+  .hero-copy h1 .line{display:block; overflow:hidden;}
+  .hero-copy h1 .line > span{display:block; transform:translateY(112%); animation:riseUp .9s cubic-bezier(.23,1,.32,1) forwards;}
+  .hero-copy h1 .line:nth-child(2) > span{animation-delay:.14s;}
   @keyframes riseUp{to{transform:translateY(0);}}
-  .hero p.lede{font-size:19px; color:var(--muted); max-width:46ch; margin:24px 0 32px; opacity:0; animation:fadeIn 1s ease .45s forwards;}
+  .hero-copy p{
+    margin:16px auto 0; max-width:52ch; font-size:16.5px; color:#3c4c60;
+    opacity:0; animation:fadeIn 1s ease .5s forwards;
+  }
   @keyframes fadeIn{to{opacity:1;}}
-  .cta-row{display:flex; gap:14px; flex-wrap:wrap; opacity:0; animation:fadeIn 1s ease .65s forwards;}
-  .btn-primary{background:var(--green); color:#fff; text-decoration:none; font-weight:800; padding:16px 30px; border-radius:999px; font-size:16px;}
-  .btn-primary:hover{background:var(--green-dark);}
-  .btn-ghost{border:2px solid var(--navy); color:var(--navy); text-decoration:none; font-weight:700; padding:14px 28px; border-radius:999px; font-size:16px;}
-  .hero-photo{position:relative; display:flex; justify-content:center; align-items:flex-end;}
-  .hero-photo img{height:min(62vh,560px); width:auto; object-fit:contain; filter:drop-shadow(0 30px 40px rgba(15,23,42,.25)); opacity:0; animation:fadeIn 1.2s ease .3s forwards;}
-  .hero-badge{position:absolute; bottom:8px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px 18px; font-size:13px; font-weight:700; color:var(--navy); box-shadow:0 12px 28px -12px rgba(15,23,42,.25);}
-  .hero-badge .stars{color:var(--gold); letter-spacing:.15em;}
-  /* tiles */
-  section.tiles{padding:88px 0;}
-  .kicker{font-size:13px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--green-dark); margin-bottom:14px;}
-  h2{font-size:clamp(32px,4.5vw,54px); letter-spacing:-.025em; line-height:1.05; font-weight:800; color:var(--navy);}
-  .sub{color:var(--muted); font-size:18px; max-width:58ch; margin-top:16px;}
-  .cards{margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
-  .card{background:#fff; border:1px solid var(--line); border-radius:20px; padding:0; overflow:hidden; cursor:pointer; font:inherit; text-align:left; color:var(--navy); transition:transform .25s ease, box-shadow .25s ease; display:block; width:100%;}
-  .card:hover{transform:translateY(-8px); box-shadow:0 28px 56px -24px rgba(15,23,42,.3);}
-  .card .tile-top{height:120px; display:flex; align-items:center; justify-content:center; position:relative;}
-  .card .tile-top svg{width:56px; height:56px;}
-  .card:nth-child(1) .tile-top{background:linear-gradient(135deg,#d7e9f9,#b9d6ef);}
-  .card:nth-child(2) .tile-top{background:linear-gradient(135deg,#d9f2e5,#bfe8d2);}
-  .card:nth-child(3) .tile-top{background:linear-gradient(135deg,#fdf3d7,#f5e3ac);}
-  .card .tile-body{padding:28px 26px 30px;}
-  .card .tile-body .tag{font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--green-dark); margin-bottom:10px;}
-  .card h3{font-size:23px; margin-bottom:10px; letter-spacing:-.01em;}
-  .card p{font-size:15px; color:var(--muted);}
-  .card .go{margin-top:16px; font-weight:700; color:var(--green-dark); font-size:15px;}
+  svg.mgate{position:absolute; inset:0; width:100%; height:100%; z-index:2; pointer-events:none;}
+  .hero-man{position:absolute; left:50%; bottom:0; transform:translateX(-50%); z-index:4; height:96%; display:flex; align-items:flex-end;}
+  .hero-man img{height:100%; width:auto; object-fit:contain; filter:drop-shadow(0 24px 30px rgba(20,30,45,.35)); opacity:0; animation:fadeIn 1.2s ease .3s forwards;}
+  .hero-ctas{position:absolute; bottom:26px; left:0; right:0; z-index:5; display:flex; gap:14px; justify-content:center; opacity:0; animation:fadeIn 1s ease .8s forwards;}
+  .btn-gold{background:var(--gold); color:#1d1503; text-decoration:none; font-weight:800; padding:15px 32px; border-radius:999px; font-size:16px; box-shadow:0 10px 24px -8px rgba(0,0,0,.4);}
+  .btn-ghost2{border:2px solid #22303f; color:#22303f; text-decoration:none; font-weight:700; padding:13px 30px; border-radius:999px; font-size:16px; background:rgba(255,255,255,.35);}
+
+  /* ============ MARBLE FLOOR + TILES ============ */
+  .floor{
+    background:
+      repeating-linear-gradient(90deg, rgba(120,105,80,.12) 0 2px, transparent 2px 220px),
+      repeating-linear-gradient(0deg, rgba(120,105,80,.1) 0 2px, transparent 2px 120px),
+      repeating-linear-gradient(118deg, rgba(120,105,80,.05) 0 2px, transparent 2px 12px),
+      linear-gradient(180deg, #e6dac2 0%, #d9cba9 100%);
+    padding:56px 0 64px;
+  }
+  .floor .kicker{text-align:center; font-size:13px; font-weight:800; letter-spacing:.24em; text-transform:uppercase; color:#6b5f45; margin-bottom:26px; text-shadow:0 1px 0 rgba(255,255,255,.6);}
+  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:26px; max-width:1080px; margin:0 auto;}
+  .tile{
+    position:relative; border:none; cursor:pointer; font:inherit; text-align:center;
+    padding:66px 26px 40px; min-height:300px;
+    box-shadow:0 22px 44px -18px rgba(60,45,20,.45), inset 0 2px 0 rgba(255,255,255,.5);
+    transition:transform .25s ease, box-shadow .25s ease;
+    display:block; width:100%; color:inherit;
+  }
+  .tile:hover{transform:translateY(-8px); box-shadow:0 34px 60px -18px rgba(60,45,20,.55), inset 0 2px 0 rgba(255,255,255,.5);}
+  .tile .ribbon{position:absolute; top:0; left:34px; width:34px; height:58px;}
+  .tile h3{font-family:'Playfair Display',Georgia,serif; font-weight:800; font-size:clamp(24px,3vw,36px); letter-spacing:.05em; margin-bottom:14px;}
+  .tile p{font-size:14px; font-weight:600; letter-spacing:.14em; line-height:1.7;}
+  .tile .go{margin-top:20px; font-size:14px; font-weight:800; letter-spacing:.1em;}
+  .tile.peach{background:linear-gradient(180deg,#f6e3c2 0%, #eecfa0 100%); color:#3a332a;}
+  .tile.peach .go{color:#8b5e34;}
+  .tile.dark{background:linear-gradient(180deg,#2a3342 0%, #1a2130 100%); color:#ece7db;}
+  .tile.dark .go{color:var(--gold);}
   .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:none;}
-  /* detail view */
-  .detail{display:none; padding:88px 0; min-height:60vh;}
+
+  /* ============ DETAIL + WIPE ============ */
+  .detail{display:none; padding:88px 0; min-height:60vh; background:#f4efe4;}
   .detail.active{display:block;}
-  .back{background:none; border:2px solid var(--navy); color:var(--navy); font-weight:700; padding:10px 22px; border-radius:999px; cursor:pointer; font-size:14px; margin-bottom:30px;}
-  .detail p.body{font-size:18px; color:var(--muted); max-width:62ch; margin:18px 0;}
-  .detail ul{margin:20px 0 32px 20px; color:var(--muted); font-size:17px; line-height:2;}
-  /* page wipe */
+  .back{background:none; border:2px solid var(--ink); color:var(--ink); font-weight:700; padding:10px 22px; border-radius:999px; cursor:pointer; font-size:14px; margin-bottom:30px;}
+  .detail .kicker2{font-size:13px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:#8b5e34; margin-bottom:14px;}
+  .detail h2{font-family:'Playfair Display',Georgia,serif; font-size:clamp(34px,5vw,56px); color:var(--ink); margin-bottom:18px;}
+  .detail p.body{font-size:18px; color:#5a5f6a; max-width:62ch; margin-bottom:8px;}
+  .detail ul{margin:20px 0 32px 20px; color:#5a5f6a; font-size:17px; line-height:2;}
+  .detail .btn-gold{display:inline-block;}
   .wipe{position:fixed; inset:0; z-index:150; pointer-events:none;}
   .wipe .p1,.wipe .p2{position:absolute; inset:0; transform:scaleY(0);}
   .wipe .p1{background:var(--navy-deep);}
@@ -88,42 +152,57 @@
   .wipe.run .p2{animation:wipeB 1.05s cubic-bezier(.77,0,.175,1) forwards;}
   @keyframes wipeA{0%{transform:scaleY(0);transform-origin:top;}45%,55%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
   @keyframes wipeB{0%{transform:scaleY(0);transform-origin:top;}35%,65%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
-  /* coach strip */
-  .coach{background:var(--navy); color:#fff; border-radius:26px; padding:64px 52px; margin-bottom:88px; display:grid; grid-template-columns:1fr auto; gap:32px; align-items:center;}
-  .coach h2{color:#fff;}
-  .coach p{color:#9aa5c8; font-size:17px; max-width:52ch; margin-top:14px;}
-  .coach .btn-primary{white-space:nowrap;}
-  footer{background:var(--navy-deep); color:#9aa5c8; font-size:14px;}
-  footer .wrap{display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; padding-top:48px; padding-bottom:48px;}
-  footer b{color:#fff;}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--navy-deep); color:#9aa3b5; font-size:14.5px;}
+  footer .wrap{display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; padding-top:46px; padding-bottom:46px;}
+  footer b{color:#fff; font-size:15px;}
   footer .stars{color:var(--gold); letter-spacing:.2em;}
   .fine{border-top:1px solid rgba(255,255,255,.1);}
-  .fine .wrap{padding-top:20px; padding-bottom:28px; font-size:12.5px; display:block;}
-  @media(max-width:860px){
-    .hero .wrap{grid-template-columns:1fr; text-align:left;}
-    .hero-photo img{height:44vh;}
-    .cards{grid-template-columns:1fr;}
-    .coach{grid-template-columns:1fr; padding:44px 28px;}
+  .fine .wrap{padding-top:18px; padding-bottom:26px; font-size:12.5px; display:block;}
+
+  @media(max-width:900px){
+    .tiles{grid-template-columns:1fr; max-width:440px;}
     footer .wrap{grid-template-columns:1fr;}
     .nav-links a.nl{display:none;}
+    .hero-stage{min-height:92vh;}
+    .hero-ctas{flex-direction:column; align-items:center; padding:0 24px;}
+    .sign-row{flex-direction:column; gap:12px;}
   }
   @media (prefers-reduced-motion: reduce){
-    h1 .line > span, .hero p.lede, .cta-row, .hero-photo img{animation:none !important; opacity:1 !important; transform:none !important;}
+    .hero-copy h1 .line > span, .hero-copy p, .hero-ctas, .hero-man img{animation:none !important; opacity:1 !important; transform:none !important;}
+    .hero-man{transform:translateX(-50%) !important;}
   }
 </style>
 </head>
 <body>
 
-<div class="ticker">
+<!-- ======== 3D SIGN ON MARBLE ======== -->
+<header class="sign-wall">
   <div class="wrap">
-    <span>Freddie Mac 30-yr fixed: <strong>7.28%</strong> · as of Oct 1, 2026</span>
-    <span class="trust">Nadeem Ahmed · NMLS #1687434 · ML Mortgage Corp NMLS #362312</span>
+    <div class="sign-row">
+      <svg class="sign-logo" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="chromeM" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f8fafc"/><stop offset=".35" stop-color="#cbd5d1"/>
+            <stop offset=".55" stop-color="#8b98a5"/><stop offset=".72" stop-color="#e6ebf0"/>
+            <stop offset="1" stop-color="#7c8894"/>
+          </linearGradient>
+        </defs>
+        <path d="M14 92 L14 28 L44 28 L60 60 L76 28 L106 28 L106 92 L89 92 L89 50 L60 98 L31 50 L31 92 Z"
+              fill="url(#chromeM)" stroke="#4c5866" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M8 104 Q60 86 112 104" stroke="#1e8a4c" stroke-width="8" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="sign-text"><span class="ml3d">ML</span> MORTGAGE CORP</div>
+    </div>
+    <div class="sign-tag">Guided by Nadeem Mortgage Coach</div>
   </div>
-</div>
+</header>
 
+<!-- ======== NAV ======== -->
 <nav>
   <div class="wrap">
-    <div class="brand"><span class="ml">ML</span> MORTGAGE CORP</div>
+    <div class="nav-brand"><span class="g">ML</span> MORTGAGE CORP</div>
     <div class="nav-links">
       <a class="nl" href="#">Home</a>
       <a class="nl" href="#paths">Scenarios</a>
@@ -134,97 +213,93 @@
   </div>
 </nav>
 
+<!-- ======== RATE TICKER (was the red ribbon) ======== -->
+<div class="ticker">
+  <div class="wrap">
+    <span>Freddie Mac 30-yr fixed: <strong>7.28%</strong> · as of Oct 1, 2026</span>
+    <span class="trust">Nadeem Ahmed · NMLS #1687434 · ML Mortgage Corp NMLS #362312</span>
+  </div>
+</div>
+
 <div id="view-main">
-  <header class="hero">
-    <canvas id="houses"></canvas>
-    <div class="wrap">
-      <div>
-        <span class="eyebrow">Guided by Nadeem · Mortgage Coach</span>
-        <h1>
-          <span class="line"><span>Your homeownership</span></span>
-          <span class="line"><span>journey, tailored.</span></span>
-        </h1>
-        <p class="lede">A personal, high-trust mortgage experience for California homebuyers. Partner with Nadeem at ML Mortgage for a clear path to your keys.</p>
-        <div class="cta-row">
-          <a class="btn-primary" href="#">Contact Nadeem</a>
-          <a class="btn-ghost" href="#paths">Explore loan paths</a>
+  <!-- ======== HERO: M GATE + BLUE PANEL ======== -->
+  <section class="hero">
+    <div class="hero-stage">
+      <div class="blue-panel">
+        <canvas id="houses"></canvas>
+        <div class="hero-copy">
+          <h1>
+            <span class="line"><span>YOUR HOMEOWNERSHIP</span></span>
+            <span class="line"><span>JOURNEY, TAILORED.</span></span>
+          </h1>
+          <p>A personal, high-trust mortgage experience for California homebuyers. Partner with Nadeem at ML Mortgage for a clear path to your keys.</p>
         </div>
       </div>
-      <div class="hero-photo">
-        <img id="heroImg" src="nadeem-walking-cutout.png" alt="Nadeem Ahmed, Mortgage Coach at ML Mortgage Corp">
-        <div class="hero-badge"><span class="stars">★★★★★</span><br>Highly Rated Broker</div>
+      <svg class="mgate" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <defs>
+          <linearGradient id="chromeP" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#6d7a88"/><stop offset=".18" stop-color="#eef2f6"/>
+            <stop offset=".38" stop-color="#9fb0bf"/><stop offset=".55" stop-color="#f4f7fa"/>
+            <stop offset=".75" stop-color="#7e8c9a"/><stop offset="1" stop-color="#dfe6ec"/>
+          </linearGradient>
+        </defs>
+        <path d="M168,748 L168,148 L600,468 L1032,148 L1032,748"
+              fill="none" stroke="#39434f" stroke-width="104" stroke-linejoin="round" stroke-linecap="square"/>
+        <path d="M168,748 L168,148 L600,468 L1032,148 L1032,748"
+              fill="none" stroke="url(#chromeP)" stroke-width="88" stroke-linejoin="round" stroke-linecap="square"/>
+      </svg>
+      <div class="hero-man">
+        <img src="nadeem-walking-cutout.png" alt="Nadeem Ahmed, Mortgage Coach at ML Mortgage Corp, walking toward you">
       </div>
-    </div>
-  </header>
-
-  <section class="tiles" id="paths">
-    <div class="wrap">
-      <div class="kicker reveal">Loan paths</div>
-      <h2 class="reveal">Pick your path.</h2>
-      <p class="sub reveal">Three ways homebuyers and homeowners work with Nadeem. Select one to see how it works.</p>
-      <div class="cards">
-        <button class="card reveal" data-path="purchase">
-          <div class="tile-top">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
-          </div>
-          <div class="tile-body">
-            <div class="tag">Buyers</div>
-            <h3>Purchase</h3>
-            <p>First home or next home — FHA, conventional, VA, and down payment assistance up to $15K.</p>
-            <div class="go">How it works →</div>
-          </div>
-        </button>
-        <button class="card reveal" data-path="refinance">
-          <div class="tile-top">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8"><path d="M4 9a8 8 0 0114-3l2 2"/><path d="M20 4v5h-5"/><path d="M20 15a8 8 0 01-14 3l-2-2"/><path d="M4 20v-5h5"/></svg>
-          </div>
-          <div class="tile-body">
-            <div class="tag">Homeowners</div>
-            <h3>Refinance</h3>
-            <p>Rate-and-term or cash-out. We run the break-even numbers before you decide anything.</p>
-            <div class="go">How it works →</div>
-          </div>
-        </button>
-        <button class="card reveal" data-path="second">
-          <div class="tile-top">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/><path d="M17 16h4v4h-4z"/></svg>
-          </div>
-          <div class="tile-body">
-            <div class="tag">Equity</div>
-            <h3>2nd Mortgage</h3>
-            <p>Tap your equity without touching your first mortgage. HELOC and home-equity options.</p>
-            <div class="go">How it works →</div>
-          </div>
-        </button>
+      <div class="hero-ctas">
+        <a class="btn-gold" href="#">Contact Nadeem</a>
+        <a class="btn-ghost2" href="#paths">Explore loan paths</a>
       </div>
     </div>
   </section>
 
-  <div class="wrap">
-    <section class="coach reveal">
-      <div>
-        <div class="kicker" style="color:var(--gold);">Why Nadeem</div>
-        <h2>One coach. Start to finish.</h2>
-        <p>No call centers, no hand-offs, no guessing. You work directly with Nadeem from first conversation to closing day — and you'll always know what happens next.</p>
+  <!-- ======== FLOOR TILES ======== -->
+  <section class="floor" id="paths">
+    <div class="wrap">
+      <div class="kicker reveal">Select a path</div>
+      <div class="tiles">
+        <button class="tile peach reveal" data-path="purchase">
+          <svg class="ribbon" viewBox="0 0 34 58"><path d="M0 0 H34 V58 L17 44 L0 58 Z" fill="#3a332a"/></svg>
+          <h3>PURCHASE</h3>
+          <p>DOWN PAYMENT<br>ASSISTANCE UP TO $15K</p>
+          <div class="go">HOW IT WORKS →</div>
+        </button>
+        <button class="tile peach reveal" data-path="refinance">
+          <h3>REFINANCE</h3>
+          <p>RATE-AND-TERM AND<br>CASH-OUT OPTIONS</p>
+          <div class="go">HOW IT WORKS →</div>
+        </button>
+        <button class="tile dark reveal" data-path="second">
+          <svg class="ribbon" viewBox="0 0 34 58"><path d="M0 0 H34 V58 L17 44 L0 58 Z" fill="#d4a017"/></svg>
+          <h3>2ND MORTGAGE</h3>
+          <p>EQUITY WITHOUT TOUCHING<br>YOUR FIRST LOAN</p>
+          <div class="go">HOW IT WORKS →</div>
+        </button>
       </div>
-      <a class="btn-primary" href="#">Contact Nadeem</a>
-    </section>
-  </div>
+    </div>
+  </section>
 </div>
 
+<!-- ======== DETAIL VIEW ======== -->
 <div id="view-detail" class="detail">
   <div class="wrap">
     <button class="back" id="backBtn">← All paths</button>
-    <div class="kicker">Loan path</div>
+    <div class="kicker2">Loan path</div>
     <h2 id="detailTitle"></h2>
     <p class="body" id="detailBody"></p>
     <ul id="detailList"></ul>
-    <a class="btn-primary" href="#">Contact Nadeem</a>
+    <a class="btn-gold" href="#">Contact Nadeem</a>
   </div>
 </div>
 
 <div class="wipe" id="wipe"><div class="p2"></div><div class="p1"></div></div>
 
+<!-- ======== FOOTER ======== -->
 <footer>
   <div class="wrap">
     <div><b>ML Mortgage Corp</b><br>NMLS #362312<br>Nadeem Ahmed<br>NMLS #1687434</div>
@@ -238,7 +313,7 @@
 
 <script>
 (function(){
-  // ---------- Floating houses (lightweight 2D canvas) ----------
+  // ---------- Floating houses: small, subtle, in the blue panel ----------
   var cv = document.getElementById('houses'), ctx = cv.getContext('2d');
   var W, H, houses = [];
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -246,37 +321,36 @@
   size(); window.addEventListener('resize', size);
   function drawHouse(x, y, s, color, alpha){
     ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
-    ctx.fillRect(x - s/2, y - s/4, s, s/2);           // body
-    ctx.beginPath();                                   // roof
+    ctx.fillRect(x - s/2, y - s/4, s, s/2);
+    ctx.beginPath();
     ctx.moveTo(x - s/2 - s*0.12, y - s/4);
     ctx.lineTo(x, y - s/4 - s*0.45);
     ctx.lineTo(x + s/2 + s*0.12, y - s/4);
     ctx.closePath(); ctx.fill();
     ctx.restore();
   }
-  var COLORS = ['#0f172a', '#d4a017', '#ffffff', '#0e9a64'];
+  var COLORS = ['#22303f', '#d4a017', '#ffffff', '#1e8a4c'];
   function spawn(anyY){
     return {
       x: Math.random()*W,
-      y: anyY ? Math.random()*H : H + 40,
-      s: 14 + Math.random()*26,
-      vy: 0.25 + Math.random()*0.6,
-      vx: (Math.random()-0.5)*0.3,
+      y: anyY ? Math.random()*H : H + 30,
+      s: 8 + Math.random()*14,
+      vy: 0.2 + Math.random()*0.45,
+      vx: (Math.random()-0.5)*0.25,
       drift: Math.random()*Math.PI*2,
       color: COLORS[Math.floor(Math.random()*COLORS.length)],
-      alpha: 0.10 + Math.random()*0.16
+      alpha: 0.08 + Math.random()*0.12
     };
   }
-  for (var i=0;i<26;i++) houses.push(spawn(true));
-  var motionOn = true;
+  for (var i=0;i<18;i++) houses.push(spawn(true));
   (function loop(){
     requestAnimationFrame(loop);
-    if (!motionOn || reduced || document.hidden) return;
+    if (reduced || document.hidden) return;
     ctx.clearRect(0,0,W,H);
     for (var i=0;i<houses.length;i++){
       var h = houses[i];
-      h.y -= h.vy; h.drift += 0.008; h.x += h.vx + Math.sin(h.drift)*0.25;
-      if (h.y < -60) houses[i] = spawn(false);
+      h.y -= h.vy; h.drift += 0.008; h.x += h.vx + Math.sin(h.drift)*0.2;
+      if (h.y < -40) houses[i] = spawn(false);
       else drawHouse(h.x, h.y, h.s, h.color, h.alpha);
     }
   })();
@@ -311,7 +385,7 @@
     wipe.classList.remove('run'); void wipe.offsetWidth; wipe.classList.add('run');
     setTimeout(function(){ swap(toDetail, data); }, 520);
   }
-  document.querySelectorAll('.card').forEach(function(c){
+  document.querySelectorAll('.tile').forEach(function(c){
     c.addEventListener('click', function(){ transition(true, DATA[c.dataset.path]); });
   });
   document.getElementById('backBtn').addEventListener('click', function(){ transition(false); });
