@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nadeem Ahmed — Mortgage Coach | ML Mortgage Corp</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --baby:#cfe3f5; --baby-deep:#b9d6ef;
+    --navy:#0f172a; --navy-deep:#07111f;
+    --gold:#d4a017; --green:#14b87a; --green-dark:#0e9a64;
+    --muted:#475569; --line:#dbe7f3; --white:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:Inter,system-ui,sans-serif; background:var(--white); color:var(--navy); -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
+  h1,h2,.brand{font-family:Manrope,Inter,sans-serif;}
+  /* rate ticker (replaces red ribbon) */
+  .ticker{background:var(--navy-deep); color:#fff; font-size:13px; letter-spacing:.05em;}
+  .ticker .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:11px; padding-bottom:11px; gap:12px; flex-wrap:wrap;}
+  .ticker strong{color:var(--gold); font-weight:800;}
+  .ticker .trust{color:#9aa5c8;}
+  /* nav */
+  nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.94); backdrop-filter:blur(12px); border-bottom:1px solid var(--line);}
+  nav .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:14px; padding-bottom:14px;}
+  .brand{font-weight:800; font-size:17px; color:var(--navy); letter-spacing:-.01em;}
+  .brand .ml{color:var(--green-dark);}
+  .nav-links{display:flex; gap:26px; align-items:center;}
+  .nav-links a.nl{color:var(--navy); text-decoration:none; font-weight:600; font-size:15px;}
+  .nav-links a.nl:hover{color:var(--green-dark);}
+  .nav-cta{background:var(--green); color:#fff; text-decoration:none; padding:11px 22px; border-radius:999px; font-weight:700; font-size:14px;}
+  .nav-cta:hover{background:var(--green-dark);}
+  /* hero — baby blue, dark navy text */
+  .hero{position:relative; background:linear-gradient(180deg, var(--baby) 0%, #e2eef9 100%); overflow:hidden; min-height:88vh; display:flex; align-items:center;}
+  #houses{position:absolute; inset:0; width:100%; height:100%; pointer-events:none;}
+  .hero .wrap{position:relative; z-index:2; display:grid; grid-template-columns:1.05fr .95fr; gap:24px; align-items:center; padding-top:64px; padding-bottom:64px; width:100%;}
+  .eyebrow{display:inline-block; font-size:13px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--green-dark); margin-bottom:20px;}
+  h1{font-size:clamp(42px,6.5vw,88px); line-height:1.0; letter-spacing:-.03em; font-weight:800; color:var(--navy);}
+  h1 .line{display:block; overflow:hidden;}
+  h1 .line > span{display:block; transform:translateY(110%); animation:riseUp .9s cubic-bezier(.23,1,.32,1) forwards;}
+  h1 .line:nth-child(2) > span{animation-delay:.12s;}
+  h1 .line:nth-child(3) > span{animation-delay:.24s;}
+  @keyframes riseUp{to{transform:translateY(0);}}
+  .hero p.lede{font-size:19px; color:var(--muted); max-width:46ch; margin:24px 0 32px; opacity:0; animation:fadeIn 1s ease .45s forwards;}
+  @keyframes fadeIn{to{opacity:1;}}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap; opacity:0; animation:fadeIn 1s ease .65s forwards;}
+  .btn-primary{background:var(--green); color:#fff; text-decoration:none; font-weight:800; padding:16px 30px; border-radius:999px; font-size:16px;}
+  .btn-primary:hover{background:var(--green-dark);}
+  .btn-ghost{border:2px solid var(--navy); color:var(--navy); text-decoration:none; font-weight:700; padding:14px 28px; border-radius:999px; font-size:16px;}
+  .hero-photo{position:relative; display:flex; justify-content:center; align-items:flex-end;}
+  .hero-photo img{height:min(62vh,560px); width:auto; object-fit:contain; filter:drop-shadow(0 30px 40px rgba(15,23,42,.25)); opacity:0; animation:fadeIn 1.2s ease .3s forwards;}
+  .hero-badge{position:absolute; bottom:8px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px 18px; font-size:13px; font-weight:700; color:var(--navy); box-shadow:0 12px 28px -12px rgba(15,23,42,.25);}
+  .hero-badge .stars{color:var(--gold); letter-spacing:.15em;}
+  /* tiles */
+  section.tiles{padding:88px 0;}
+  .kicker{font-size:13px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--green-dark); margin-bottom:14px;}
+  h2{font-size:clamp(32px,4.5vw,54px); letter-spacing:-.025em; line-height:1.05; font-weight:800; color:var(--navy);}
+  .sub{color:var(--muted); font-size:18px; max-width:58ch; margin-top:16px;}
+  .cards{margin-top:44px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .card{background:#fff; border:1px solid var(--line); border-radius:20px; padding:0; overflow:hidden; cursor:pointer; font:inherit; text-align:left; color:var(--navy); transition:transform .25s ease, box-shadow .25s ease; display:block; width:100%;}
+  .card:hover{transform:translateY(-8px); box-shadow:0 28px 56px -24px rgba(15,23,42,.3);}
+  .card .tile-top{height:120px; display:flex; align-items:center; justify-content:center; position:relative;}
+  .card .tile-top svg{width:56px; height:56px;}
+  .card:nth-child(1) .tile-top{background:linear-gradient(135deg,#d7e9f9,#b9d6ef);}
+  .card:nth-child(2) .tile-top{background:linear-gradient(135deg,#d9f2e5,#bfe8d2);}
+  .card:nth-child(3) .tile-top{background:linear-gradient(135deg,#fdf3d7,#f5e3ac);}
+  .card .tile-body{padding:28px 26px 30px;}
+  .card .tile-body .tag{font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--green-dark); margin-bottom:10px;}
+  .card h3{font-size:23px; margin-bottom:10px; letter-spacing:-.01em;}
+  .card p{font-size:15px; color:var(--muted);}
+  .card .go{margin-top:16px; font-weight:700; color:var(--green-dark); font-size:15px;}
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  /* detail view */
+  .detail{display:none; padding:88px 0; min-height:60vh;}
+  .detail.active{display:block;}
+  .back{background:none; border:2px solid var(--navy); color:var(--navy); font-weight:700; padding:10px 22px; border-radius:999px; cursor:pointer; font-size:14px; margin-bottom:30px;}
+  .detail p.body{font-size:18px; color:var(--muted); max-width:62ch; margin:18px 0;}
+  .detail ul{margin:20px 0 32px 20px; color:var(--muted); font-size:17px; line-height:2;}
+  /* page wipe */
+  .wipe{position:fixed; inset:0; z-index:150; pointer-events:none;}
+  .wipe .p1,.wipe .p2{position:absolute; inset:0; transform:scaleY(0);}
+  .wipe .p1{background:var(--navy-deep);}
+  .wipe .p2{background:var(--gold);}
+  .wipe.run .p1{animation:wipeA 1.05s cubic-bezier(.77,0,.175,1) forwards;}
+  .wipe.run .p2{animation:wipeB 1.05s cubic-bezier(.77,0,.175,1) forwards;}
+  @keyframes wipeA{0%{transform:scaleY(0);transform-origin:top;}45%,55%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
+  @keyframes wipeB{0%{transform:scaleY(0);transform-origin:top;}35%,65%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
+  /* coach strip */
+  .coach{background:var(--navy); color:#fff; border-radius:26px; padding:64px 52px; margin-bottom:88px; display:grid; grid-template-columns:1fr auto; gap:32px; align-items:center;}
+  .coach h2{color:#fff;}
+  .coach p{color:#9aa5c8; font-size:17px; max-width:52ch; margin-top:14px;}
+  .coach .btn-primary{white-space:nowrap;}
+  footer{background:var(--navy-deep); color:#9aa5c8; font-size:14px;}
+  footer .wrap{display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; padding-top:48px; padding-bottom:48px;}
+  footer b{color:#fff;}
+  footer .stars{color:var(--gold); letter-spacing:.2em;}
+  .fine{border-top:1px solid rgba(255,255,255,.1);}
+  .fine .wrap{padding-top:20px; padding-bottom:28px; font-size:12.5px; display:block;}
+  @media(max-width:860px){
+    .hero .wrap{grid-template-columns:1fr; text-align:left;}
+    .hero-photo img{height:44vh;}
+    .cards{grid-template-columns:1fr;}
+    .coach{grid-template-columns:1fr; padding:44px 28px;}
+    footer .wrap{grid-template-columns:1fr;}
+    .nav-links a.nl{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    h1 .line > span, .hero p.lede, .cta-row, .hero-photo img{animation:none !important; opacity:1 !important; transform:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <div class="wrap">
+    <span>Freddie Mac 30-yr fixed: <strong>7.28%</strong> · as of Oct 1, 2026</span>
+    <span class="trust">Nadeem Ahmed · NMLS #1687434 · ML Mortgage Corp NMLS #362312</span>
+  </div>
+</div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="ml">ML</span> MORTGAGE CORP</div>
+    <div class="nav-links">
+      <a class="nl" href="#">Home</a>
+      <a class="nl" href="#paths">Scenarios</a>
+      <a class="nl" href="#">Calculator</a>
+      <a class="nl" href="#">Webinar</a>
+      <a class="nav-cta" href="#">Contact Nadeem</a>
+    </div>
+  </div>
+</nav>
+
+<div id="view-main">
+  <header class="hero">
+    <canvas id="houses"></canvas>
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Guided by Nadeem · Mortgage Coach</span>
+        <h1>
+          <span class="line"><span>Your homeownership</span></span>
+          <span class="line"><span>journey, tailored.</span></span>
+        </h1>
+        <p class="lede">A personal, high-trust mortgage experience for California homebuyers. Partner with Nadeem at ML Mortgage for a clear path to your keys.</p>
+        <div class="cta-row">
+          <a class="btn-primary" href="#">Contact Nadeem</a>
+          <a class="btn-ghost" href="#paths">Explore loan paths</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img id="heroImg" src="nadeem-walking-cutout.png" alt="Nadeem Ahmed, Mortgage Coach at ML Mortgage Corp">
+        <div class="hero-badge"><span class="stars">★★★★★</span><br>Highly Rated Broker</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="tiles" id="paths">
+    <div class="wrap">
+      <div class="kicker reveal">Loan paths</div>
+      <h2 class="reveal">Pick your path.</h2>
+      <p class="sub reveal">Three ways homebuyers and homeowners work with Nadeem. Select one to see how it works.</p>
+      <div class="cards">
+        <button class="card reveal" data-path="purchase">
+          <div class="tile-top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+          </div>
+          <div class="tile-body">
+            <div class="tag">Buyers</div>
+            <h3>Purchase</h3>
+            <p>First home or next home — FHA, conventional, VA, and down payment assistance up to $15K.</p>
+            <div class="go">How it works →</div>
+          </div>
+        </button>
+        <button class="card reveal" data-path="refinance">
+          <div class="tile-top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8"><path d="M4 9a8 8 0 0114-3l2 2"/><path d="M20 4v5h-5"/><path d="M20 15a8 8 0 01-14 3l-2-2"/><path d="M4 20v-5h5"/></svg>
+          </div>
+          <div class="tile-body">
+            <div class="tag">Homeowners</div>
+            <h3>Refinance</h3>
+            <p>Rate-and-term or cash-out. We run the break-even numbers before you decide anything.</p>
+            <div class="go">How it works →</div>
+          </div>
+        </button>
+        <button class="card reveal" data-path="second">
+          <div class="tile-top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/><path d="M17 16h4v4h-4z"/></svg>
+          </div>
+          <div class="tile-body">
+            <div class="tag">Equity</div>
+            <h3>2nd Mortgage</h3>
+            <p>Tap your equity without touching your first mortgage. HELOC and home-equity options.</p>
+            <div class="go">How it works →</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="coach reveal">
+      <div>
+        <div class="kicker" style="color:var(--gold);">Why Nadeem</div>
+        <h2>One coach. Start to finish.</h2>
+        <p>No call centers, no hand-offs, no guessing. You work directly with Nadeem from first conversation to closing day — and you'll always know what happens next.</p>
+      </div>
+      <a class="btn-primary" href="#">Contact Nadeem</a>
+    </section>
+  </div>
+</div>
+
+<div id="view-detail" class="detail">
+  <div class="wrap">
+    <button class="back" id="backBtn">← All paths</button>
+    <div class="kicker">Loan path</div>
+    <h2 id="detailTitle"></h2>
+    <p class="body" id="detailBody"></p>
+    <ul id="detailList"></ul>
+    <a class="btn-primary" href="#">Contact Nadeem</a>
+  </div>
+</div>
+
+<div class="wipe" id="wipe"><div class="p2"></div><div class="p1"></div></div>
+
+<footer>
+  <div class="wrap">
+    <div><b>ML Mortgage Corp</b><br>NMLS #362312<br>Nadeem Ahmed<br>NMLS #1687434</div>
+    <div><b>Contact</b><br>Cell: (909) 261-1911<br>Office: (909) 652-0780 ext 223<br>www.mlmortgage.net</div>
+    <div><b>Office</b><br>8280 Aspen St<br>Rancho Cucamonga, CA 91730<br><span class="stars">★★★★★</span> Highly Rated Broker</div>
+  </div>
+  <div class="fine">
+    <div class="wrap">Nadeem Ahmed NMLS #1687434 | ML Mortgage Corp NMLS #362312 | Equal Housing Lender. Sample site — not the live website.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Floating houses (lightweight 2D canvas) ----------
+  var cv = document.getElementById('houses'), ctx = cv.getContext('2d');
+  var W, H, houses = [];
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){ W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; }
+  size(); window.addEventListener('resize', size);
+  function drawHouse(x, y, s, color, alpha){
+    ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
+    ctx.fillRect(x - s/2, y - s/4, s, s/2);           // body
+    ctx.beginPath();                                   // roof
+    ctx.moveTo(x - s/2 - s*0.12, y - s/4);
+    ctx.lineTo(x, y - s/4 - s*0.45);
+    ctx.lineTo(x + s/2 + s*0.12, y - s/4);
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  var COLORS = ['#0f172a', '#d4a017', '#ffffff', '#0e9a64'];
+  function spawn(anyY){
+    return {
+      x: Math.random()*W,
+      y: anyY ? Math.random()*H : H + 40,
+      s: 14 + Math.random()*26,
+      vy: 0.25 + Math.random()*0.6,
+      vx: (Math.random()-0.5)*0.3,
+      drift: Math.random()*Math.PI*2,
+      color: COLORS[Math.floor(Math.random()*COLORS.length)],
+      alpha: 0.10 + Math.random()*0.16
+    };
+  }
+  for (var i=0;i<26;i++) houses.push(spawn(true));
+  var motionOn = true;
+  (function loop(){
+    requestAnimationFrame(loop);
+    if (!motionOn || reduced || document.hidden) return;
+    ctx.clearRect(0,0,W,H);
+    for (var i=0;i<houses.length;i++){
+      var h = houses[i];
+      h.y -= h.vy; h.drift += 0.008; h.x += h.vx + Math.sin(h.drift)*0.25;
+      if (h.y < -60) houses[i] = spawn(false);
+      else drawHouse(h.x, h.y, h.s, h.color, h.alpha);
+    }
+  })();
+
+  // ---------- Scroll reveals ----------
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // ---------- Page wipe transitions ----------
+  var DATA = {
+    purchase: {t:'Purchase', b:'Buying your first home — or your next one — starts with knowing what you can afford. Nadeem maps your payment, down payment, and loan options before you shop.', l:['FHA, conventional, and VA programs','Down payment assistance up to $15K','Pre-approval with a clear payment picture']},
+    refinance: {t:'Refinance', b:'A refinance should have a reason: lower payment, cash out, shorter term. Nadeem runs the break-even math so you decide with numbers, not guesses.', l:['Rate-and-term and cash-out options','Break-even timeline in plain English','No-pressure numbers review']},
+    second: {t:'2nd Mortgage', b:'Need cash without giving up a great first-mortgage rate? A second mortgage or HELOC lets you tap equity while your primary loan stays put.', l:['HELOC and home-equity loan options','Keep your low first-mortgage rate','Clear qualification walkthrough']}
+  };
+  var wipe = document.getElementById('wipe');
+  var main = document.getElementById('view-main');
+  var detail = document.getElementById('view-detail');
+  function swap(toDetail, data){
+    if (toDetail){
+      document.getElementById('detailTitle').textContent = data.t;
+      document.getElementById('detailBody').textContent = data.b;
+      document.getElementById('detailList').innerHTML = data.l.map(function(x){return '<li>'+x+'</li>';}).join('');
+      main.style.display = 'none'; detail.classList.add('active'); window.scrollTo(0,0);
+    } else {
+      detail.classList.remove('active'); main.style.display = ''; window.scrollTo(0,0);
+    }
+  }
+  function transition(toDetail, data){
+    if (reduced){ swap(toDetail, data); return; }
+    wipe.classList.remove('run'); void wipe.offsetWidth; wipe.classList.add('run');
+    setTimeout(function(){ swap(toDetail, data); }, 520);
+  }
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click', function(){ transition(true, DATA[c.dataset.path]); });
+  });
+  document.getElementById('backBtn').addEventListener('click', function(){ transition(false); });
+})();
+</script>
+</body>
+</html>
