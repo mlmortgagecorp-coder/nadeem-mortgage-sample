@@ -20,6 +20,12 @@
   }
   .bleed::after{content:''; position:absolute; inset:0; background:rgba(10,12,18,.25);}
 
+  /* ambient gold glow — slow drift behind the stage (motion layer) */
+  .glow{position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(42% 34% at 50% 62%, rgba(212,160,23,.13), rgba(212,160,23,0) 70%);
+    animation:glowDrift 14s ease-in-out infinite alternate;}
+  @keyframes glowDrift{from{transform:translate3d(-3%,-2%,0) scale(1);}to{transform:translate3d(3%,2%,0) scale(1.08);}}
+
   /* the picture, exact ratios, never distorted */
   .stage{
     position:relative; z-index:1; container-type:inline-size;
@@ -39,6 +45,15 @@
     font-size:1.55cqw; letter-spacing:.06em; color:#fff; white-space:nowrap; overflow:hidden;
   }
   .ticker strong{color:#d4a017; font-weight:800;}
+  /* sheen sweep across the rate (motion layer; class added by JS only) */
+  .ticker strong.shimmer{
+    background:linear-gradient(110deg,#d4a017 35%,#ffedb3 50%,#d4a017 65%);
+    background-size:220% auto;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    animation:sheen 6s ease-in-out infinite;
+  }
+  @keyframes sheen{0%{background-position:0% center;}55%,100%{background-position:220% center;}}
   .ticker .dim{color:#8b94a7;}
 
   /* clickable floor tiles: real stone texture, new labels */
@@ -48,6 +63,7 @@
     background-size:cover; background-position:center;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6cqw;
     text-align:center; transition:filter .2s ease;
+    will-change:transform;
   }
   .tile:hover{filter:brightness(1.12);}
   .tile:focus-visible{outline:3px solid #d4a017; outline-offset:-3px;}
@@ -97,11 +113,13 @@
   @keyframes wipeB{0%{transform:scaleY(0);transform-origin:top;}35%,65%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
   @media (prefers-reduced-motion: reduce){
     .tile{transition:none;}
+    .glow{display:none;}
   }
 </style>
 </head>
 <body>
 <div class="bleed"></div>
+<div class="glow" aria-hidden="true"></div>
 
 <div class="stage" id="stage">
   <img class="photo" src="mockup.jpg" alt="ML Mortgage Corp — Guided by Nadeem, Mortgage Coach. Your homeownership journey, tailored.">
@@ -147,9 +165,13 @@
 
 <div class="wipe" id="wipe"><div class="p2"></div><div class="p1"></div></div>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function(){
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+  var hasGsap = (typeof window.gsap !== 'undefined');
   var DATA = {
     purchase: {t:'Purchase', b:'Buying your first home — or your next one — starts with knowing what you can afford. Nadeem maps your payment, down payment, and loan options before you shop.', l:['FHA, conventional, and VA programs','Down payment assistance up to $15K','Pre-approval with a clear payment picture']},
     refinance: {t:'Refinance', b:'A refinance should have a reason: lower payment, cash out, shorter term. Nadeem runs the break-even math so you decide with numbers, not guesses.', l:['Rate-and-term and cash-out options','Break-even timeline in plain English','No-pressure numbers review']},
@@ -157,14 +179,91 @@
   };
   var wipe = document.getElementById('wipe');
   var stage = document.getElementById('stage');
+  var bleed = document.querySelector('.bleed');
   var detail = document.getElementById('view-detail');
+  var lenis = null;
+
+  /* ---------- motion layer (progressive enhancement; page is complete without it) ---------- */
+
+  // Entrance choreography
+  function playEntrance(done){
+    if (!hasGsap || reduced){
+      if (done) done();
+      return;
+    }
+    var tl = gsap.timeline({defaults:{ease:'power3.out'}, onComplete:done});
+    tl.from('.bleed', {opacity:0, duration:.9}, 0)
+      .from('.glow', {opacity:0, duration:1.4}, .2)
+      .from('.stage', {opacity:0, scale:1.035, duration:1.1}, .1)
+      .from('.ticker', {y:-14, opacity:0, duration:.7}, .55)
+      .from('.tile', {y:26, opacity:0, duration:.7, stagger:.09}, .7)
+      .from('.footer-fix', {y:14, opacity:0, duration:.7}, .95);
+  }
+
+  // Magnetic tiles + hero parallax (fine pointers only)
+  function bindPointerMotion(){
+    if (!hasGsap || reduced || !finePointer) return;
+    document.querySelectorAll('.tile').forEach(function(t){
+      var xTo = gsap.quickTo(t, 'x', {duration:.4, ease:'power3'});
+      var yTo = gsap.quickTo(t, 'y', {duration:.4, ease:'power3'});
+      t.addEventListener('mousemove', function(e){
+        var r = t.getBoundingClientRect();
+        xTo(((e.clientX - r.left) / r.width - .5) * 14);
+        yTo(((e.clientY - r.top) / r.height - .5) * 14);
+      });
+      t.addEventListener('mouseleave', function(){ xTo(0); yTo(0); });
+    });
+    var stX = gsap.quickTo(stage, 'x', {duration:.7, ease:'power2'});
+    var stY = gsap.quickTo(stage, 'y', {duration:.7, ease:'power2'});
+    var blX = gsap.quickTo(bleed, 'x', {duration:.9, ease:'power2'});
+    var blY = gsap.quickTo(bleed, 'y', {duration:.9, ease:'power2'});
+    window.addEventListener('mousemove', function(e){
+      var nx = e.clientX / window.innerWidth - .5;
+      var ny = e.clientY / window.innerHeight - .5;
+      stX(nx * 16); stY(ny * 12);
+      blX(nx * -26); blY(ny * -20);
+    });
+  }
+
+  // Rate sheen (class added by JS so no-JS/reduced-motion keeps the flat gold)
+  if (!reduced){
+    var rateEl = document.querySelector('.ticker strong');
+    if (rateEl) rateEl.classList.add('shimmer');
+  }
+
+  // Lenis smooth scroll for the detail view (the only scrolling surface)
+  function ensureLenis(){
+    if (reduced || typeof window.Lenis === 'undefined') return;
+    try{
+      if (!lenis){
+        lenis = new Lenis({wrapper: detail, autoRaf: true, smoothWheel: true});
+      }
+      lenis.start();
+    }catch(err){ lenis = null; }
+  }
+
+  // Detail content cascade
+  function playDetailEntrance(){
+    if (!hasGsap || reduced) return;
+    gsap.fromTo('#view-detail .wrap > *',
+      {y:18, opacity:0},
+      {y:0, opacity:1, duration:.6, ease:'power3.out', stagger:.06, delay:.08, overwrite:'auto'});
+  }
+
+  playEntrance(bindPointerMotion);
+
+  /* ---------- existing view logic (unchanged behavior) ---------- */
   function swap(toDetail, data){
     if (toDetail){
       document.getElementById('detailTitle').textContent = data.t;
       document.getElementById('detailBody').textContent = data.b;
       document.getElementById('detailList').innerHTML = data.l.map(function(x){return '<li>'+x+'</li>';}).join('');
       detail.classList.add('active'); document.body.style.overflow = 'auto';
+      void detail.offsetWidth;
+      ensureLenis();
+      playDetailEntrance();
     } else {
+      if (lenis){ try{ lenis.stop(); }catch(err){} }
       detail.classList.remove('active'); document.body.style.overflow = 'hidden';
     }
   }
