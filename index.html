@@ -4,278 +4,334 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nadeem Ahmed — Mortgage Coach | ML Mortgage Corp</title>
+<meta name="description" content="Nadeem Ahmed, Mortgage Coach with ML Mortgage Corp (NMLS #1687434). Purchase, refinance, and second mortgages mapped to your budget.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{height:100%;}
-  body{
-    font-family:Inter,system-ui,sans-serif; background:#0d0f14; color:#fff;
-    min-height:100vh; min-height:100svh; display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
+  :root{
+    --navy:#0b1220; --navy2:#0e1626; --navy3:#142036;
+    --gold:#d4a017; --gold2:#f0c94a;
+    --ink:#f6f2e9; --muted:#a8b0c2; --line:rgba(212,160,23,.22);
   }
-  /* bleed: blurred mockup fills leftover space around the picture */
-  .bleed{position:fixed; inset:-60px; z-index:0;
-    background:url('mockup.jpg') center/cover no-repeat;
-    filter:blur(70px) brightness(.85) saturate(1.1);
-  }
-  .bleed::after{content:''; position:absolute; inset:0; background:rgba(10,12,18,.25);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html.lenis, html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
+  body{background:var(--navy);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%}
+  a{color:inherit}
 
-  /* ambient gold glow — slow drift behind the stage (motion layer) */
-  .glow{position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:radial-gradient(42% 34% at 50% 62%, rgba(212,160,23,.13), rgba(212,160,23,0) 70%);
-    animation:glowDrift 14s ease-in-out infinite alternate;}
-  @keyframes glowDrift{from{transform:translate3d(-3%,-2%,0) scale(1);}to{transform:translate3d(3%,2%,0) scale(1.08);}}
+  /* ---------- nav ---------- */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1180px;margin:0 auto;padding:.85rem 1.25rem;display:flex;align-items:center;gap:1.5rem}
+  .brand{font-weight:800;letter-spacing:.02em;text-decoration:none;font-size:1rem;white-space:nowrap}
+  .brand small{display:block;font-weight:600;color:var(--gold2);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}
+  .nav-links{display:flex;gap:1.4rem;margin-left:auto}
+  .nav-links a{text-decoration:none;color:var(--muted);font-weight:600;font-size:.92rem;transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{display:inline-block;text-decoration:none;font-weight:700;border-radius:.7rem;padding:.75rem 1.5rem;transition:transform .2s,box-shadow .2s,background .2s;cursor:pointer;border:none;font-size:.95rem}
+  .btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#14100a;box-shadow:0 8px 24px rgba(212,160,23,.28)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(212,160,23,.38)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid rgba(246,242,233,.3)}
+  .btn-ghost:hover{border-color:var(--gold2);color:var(--gold2)}
+  .nav-cta{margin-left:.4rem;white-space:nowrap}
+  .hamburger{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:.5rem;color:var(--ink);font-size:1.25rem;padding:.35rem .7rem;cursor:pointer}
 
-  /* the picture, exact ratios, never distorted */
-  .stage{
-    position:relative; z-index:1; container-type:inline-size;
-    width:min(100vw, calc(100vh * 1856 / 2304));
-    width:min(100vw, calc(100svh * 1856 / 2304));
-    line-height:0;
-  }
-  .stage img.photo{width:100%; height:auto; display:block;}
+  /* ---------- hero ---------- */
+  .hero{max-width:1180px;margin:0 auto;padding:clamp(2.5rem,6vw,5rem) 1.25rem;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center;min-height:calc(100svh - 70px)}
+  .kicker{color:var(--gold2);font-weight:700;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:1rem}
+  .hero h1{font-family:"Playfair Display",serif;font-weight:800;font-size:clamp(2.4rem,5.6vw,3.9rem);line-height:1.08;margin-bottom:1.1rem}
+  .hero h1 em{color:var(--gold2);font-style:normal}
+  .hero .sub{color:var(--muted);font-size:clamp(1rem,2.4vw,1.12rem);max-width:46ch;margin-bottom:1.8rem}
+  .hero-ctas{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:1.6rem}
+  .trust{display:flex;align-items:center;gap:.7rem;color:var(--muted);font-size:.9rem}
+  .trust .stars{color:var(--gold2);letter-spacing:.12em}
 
-  /* ---- overlays (positioned in % of the picture) ---- */
-  .ovl{position:absolute; line-height:1.4;}
+  .hero-photo{position:relative;border-radius:1.5rem;background:radial-gradient(120% 100% at 30% 10%,#1d2c4d 0%,var(--navy2) 55%,#0a0f1c 100%);border:1px solid var(--line);min-height:clamp(380px,55vw,560px);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+  .hero-photo::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 45% at 70% 75%,rgba(212,160,23,.16),transparent 70%);pointer-events:none}
+  .hero-photo img.cutout{position:relative;z-index:1;max-height:92%;width:auto;filter:drop-shadow(0 24px 48px rgba(0,0,0,.5))}
+  .float-card{position:absolute;z-index:2;background:rgba(14,22,38,.92);border:1px solid var(--line);border-radius:.8rem;padding:.65rem .95rem;font-size:.82rem;box-shadow:0 14px 34px rgba(0,0,0,.45);backdrop-filter:blur(6px)}
+  .float-card .lbl{display:block;color:var(--muted);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.15rem}
+  .float-card b{color:var(--gold2)}
+  .fc-rate{top:8%;left:6%}
+  .fc-exp{top:44%;right:5%}
+  .fc-nmls{bottom:7%;left:8%}
+  @media (prefers-reduced-motion:no-preference){
+    .float-card{animation:drift 7s ease-in-out infinite}
+    .fc-exp{animation-delay:-2.4s}.fc-nmls{animation-delay:-4.8s}
+    @keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  }
 
-  /* rate ticker sitting exactly where the red ribbon was */
-  .ticker{
-    left:0; width:100%; top:24.9%; height:4.3%;
-    background:#0d1320; display:flex; align-items:center; justify-content:center; gap:3cqw;
-    font-size:1.55cqw; letter-spacing:.06em; color:#fff; white-space:nowrap; overflow:hidden;
-  }
-  .ticker strong{color:#d4a017; font-weight:800;}
-  /* sheen sweep across the rate (motion layer; class added by JS only) */
-  .ticker strong.shimmer{
-    background:linear-gradient(110deg,#d4a017 35%,#ffedb3 50%,#d4a017 65%);
-    background-size:220% auto;
-    -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent; color:transparent;
-    animation:sheen 6s ease-in-out infinite;
-  }
-  @keyframes sheen{0%{background-position:0% center;}55%,100%{background-position:220% center;}}
-  .ticker .dim{color:#8b94a7;}
+  /* ---------- sections ---------- */
+  section.block{max-width:1180px;margin:0 auto;padding:clamp(3rem,7vw,5.5rem) 1.25rem}
+  .sec-head{text-align:center;margin-bottom:2.4rem}
+  .sec-head h2{font-family:"Playfair Display",serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800}
+  .sec-head h2 em{color:var(--gold2);font-style:normal}
+  .sec-head p{color:var(--muted);max-width:620px;margin:.7rem auto 0}
 
-  /* clickable floor tiles: real stone texture, new labels */
-  .tile{
-    border:none; padding:0; cursor:pointer; font:inherit; color:inherit;
-    top:74.3%; height:15.1%;
-    background-size:cover; background-position:center;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.6cqw;
-    text-align:center; transition:filter .2s ease;
-    will-change:transform;
-  }
-  .tile:hover{filter:brightness(1.12);}
-  .tile:focus-visible{outline:3px solid #d4a017; outline-offset:-3px;}
-  .tile h3{
-    font-family:'Playfair Display',Georgia,serif; font-weight:800;
-    font-size:2.5cqw; letter-spacing:.06em; line-height:1.1;
-  }
-  .tile p{font-size:1.05cqw; font-weight:700; letter-spacing:.16em; line-height:1.7;}
-  .tile.t1{left:.4%; width:35%; background-image:url('tex-dark.png'); color:#ece7db; text-shadow:0 2px 6px rgba(0,0,0,.5);}
-  .tile.t2{left:36.6%; width:29.6%; background-image:url('tex-peach.png'); color:#3a332a;}
-  .tile.t3{left:67.4%; width:32.2%; background-image:url('tex-dark.png'); color:#ece7db; text-shadow:0 2px 6px rgba(0,0,0,.5);}
-  .tile .go{font-size:1cqw; font-weight:800; letter-spacing:.12em; opacity:0; transition:opacity .2s;}
-  .tile:hover .go{opacity:.85;}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+  .card{background:var(--navy2);border:1px solid var(--line);border-radius:1.1rem;padding:1.8rem 1.6rem;transition:transform .25s,border-color .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 20px 44px rgba(0,0,0,.4)}
+  .card .tag{color:var(--gold2);font-weight:800;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.7rem;display:block}
+  .card h3{font-size:1.15rem;margin-bottom:.6rem}
+  .card p{color:var(--muted);font-size:.94rem}
 
-  /* corrected footer strip over the picture's footer */
-  .footer-fix{
-    left:0; width:100%; top:91.1%; height:8.9%; background:#131210;
-    display:grid; grid-template-columns:1fr 1fr 1fr; align-items:center;
-    padding:0 4cqw; font-size:1.5cqw; color:#cfc9bb; gap:2cqw;
-  }
-  .footer-fix b{color:#fff; font-weight:700;}
-  .footer-fix .stars{color:#d4a017; letter-spacing:.25em;}
-  .footer-fix div{line-height:1.65;}
-  .footer-fix .r{text-align:right;}
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+  .about-photo{border-radius:1.25rem;overflow:hidden;border:1px solid var(--line);background:radial-gradient(120% 100% at 30% 10%,#1d2c4d 0%,var(--navy2) 60%,#0a0f1c 100%);display:flex;align-items:flex-end;justify-content:center;min-height:380px}
+  .about-photo img{max-height:420px;width:auto}
+  .about-copy h2{font-family:"Playfair Display",serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;margin-bottom:1rem}
+  .about-copy h2 em{color:var(--gold2);font-style:normal}
+  .about-copy p{color:var(--muted);margin-bottom:1rem;max-width:56ch}
+  .about-facts{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem}
+  .fact{background:var(--navy2);border:1px solid var(--line);border-radius:.7rem;padding:.7rem 1.1rem;font-size:.88rem}
+  .fact b{color:var(--gold2);display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.15rem}
 
-  /* ---- detail view ---- */
-  #view-detail{
-    position:fixed; inset:0; z-index:40; display:none;
-    background:linear-gradient(180deg,#efe8d8,#ddd0b4); color:#23272e;
-    overflow-y:auto; line-height:1.5;
+  /* ---------- testimonials ---------- */
+  .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+  .t-card{background:var(--navy2);border:1px dashed rgba(212,160,23,.4);border-radius:1.1rem;padding:1.6rem;display:flex;flex-direction:column;gap:.9rem}
+  .t-card .sample-tag{align-self:flex-start;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#14100a;background:var(--gold2);border-radius:.4rem;padding:.25rem .6rem}
+  .t-card blockquote{font-size:.95rem;color:var(--ink)}
+  .t-card cite{font-style:normal;color:var(--muted);font-size:.85rem}
+
+  /* ---------- contact ---------- */
+  .contact-band{background:linear-gradient(135deg,#16233d,#0e1626);border:1px solid var(--line);border-radius:1.5rem;padding:clamp(2.5rem,6vw,4rem);text-align:center;max-width:1180px;margin:0 auto}
+  .contact-band h2{font-family:"Playfair Display",serif;font-size:clamp(1.8rem,4.5vw,2.7rem);font-weight:800;margin-bottom:.8rem}
+  .contact-band h2 em{color:var(--gold2);font-style:normal}
+  .contact-band p{color:var(--muted);margin-bottom:1.8rem}
+  .contact-rows{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .contact-rows div{text-align:left}
+  .contact-rows .lbl{display:block;color:var(--muted);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2rem}
+  .contact-rows a{font-weight:700;font-size:1.05rem;text-decoration:none}
+  .contact-rows a:hover{color:var(--gold2)}
+
+  footer{border-top:1px solid var(--line);margin-top:clamp(3rem,7vw,5rem);padding:2rem 1.25rem;text-align:center;color:var(--muted);font-size:.85rem}
+  footer .nmls{margin-top:.4rem}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;min-height:0;text-align:left}
+    .hero-photo{min-height:340px;order:2}
+    .cards,.t-grid{grid-template-columns:1fr}
+    .about-grid{grid-template-columns:1fr}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--navy2);flex-direction:column;padding:1rem 1.25rem 1.4rem;gap:1rem;border-bottom:1px solid var(--line)}
+    .nav-links.open{display:flex}
+    .nav-cta{display:none}
+    .hamburger{display:block}
   }
-  #view-detail.active{display:block;}
-  #view-detail .wrap{max-width:760px; margin:0 auto; padding:8vh 28px;}
-  .back{background:none; border:2px solid #23272e; color:#23272e; font-weight:700; padding:10px 22px; border-radius:999px; cursor:pointer; font-size:14px; margin-bottom:28px;}
-  .kicker2{font-size:13px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:#8b5e34; margin-bottom:12px;}
-  #view-detail h2{font-family:'Playfair Display',Georgia,serif; font-size:clamp(34px,6vw,56px); margin-bottom:16px;}
-  #view-detail p.body{font-size:18px; color:#5a5f6a; max-width:62ch;}
-  #view-detail ul{margin:22px 0 32px 20px; color:#5a5f6a; font-size:17px; line-height:2;}
-  .btn-gold{background:#d4a017; color:#1d1503; text-decoration:none; font-weight:800; padding:15px 32px; border-radius:999px; font-size:16px; display:inline-block;}
-  .wipe{position:fixed; inset:0; z-index:60; pointer-events:none;}
-  .wipe .p1,.wipe .p2{position:absolute; inset:0; transform:scaleY(0);}
-  .wipe .p1{background:#0d1320;}
-  .wipe .p2{background:#d4a017;}
-  .wipe.run .p1{animation:wipeA 1.05s cubic-bezier(.77,0,.175,1) forwards;}
-  .wipe.run .p2{animation:wipeB 1.05s cubic-bezier(.77,0,.175,1) forwards;}
-  @keyframes wipeA{0%{transform:scaleY(0);transform-origin:top;}45%,55%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
-  @keyframes wipeB{0%{transform:scaleY(0);transform-origin:top;}35%,65%{transform:scaleY(1);transform-origin:top;}100%{transform:scaleY(0);transform-origin:bottom;}}
-  @media (prefers-reduced-motion: reduce){
-    .tile{transition:none;}
-    .glow{display:none;}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important;transition:none!important}
   }
 </style>
 </head>
 <body>
-<div class="bleed"></div>
-<div class="glow" aria-hidden="true"></div>
 
-<div class="stage" id="stage">
-  <img class="photo" src="mockup.jpg" alt="ML Mortgage Corp — Guided by Nadeem, Mortgage Coach. Your homeownership journey, tailored.">
-
-  <div class="ovl ticker">
-    <span>Freddie Mac 30-yr fixed: <strong>7.40%</strong> · as of Oct 8, 2026</span>
-    <span class="dim">Nadeem Ahmed · NMLS #1687434</span>
+<nav class="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="brand" href="#top">Nadeem Ahmed<small>Mortgage Coach</small></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#loan-paths">Loan paths</a>
+      <a href="#about">About</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="btn btn-gold nav-cta" href="#contact">Get pre-approved</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
   </div>
+</nav>
 
-  <button class="ovl tile t1" data-path="purchase" aria-label="Purchase — how it works">
-    <h3>PURCHASE</h3>
-    <p>DOWN PAYMENT<br>ASSISTANCE UP TO $15K</p>
-    <span class="go">HOW IT WORKS →</span>
-  </button>
-  <button class="ovl tile t2" data-path="refinance" aria-label="Refinance — how it works">
-    <h3>REFINANCE</h3>
-    <p>RATE-AND-TERM AND<br>CASH-OUT OPTIONS</p>
-    <span class="go">HOW IT WORKS →</span>
-  </button>
-  <button class="ovl tile t3" data-path="second" aria-label="2nd Mortgage — how it works">
-    <h3>2ND MORTGAGE</h3>
-    <p>EQUITY WITHOUT TOUCHING<br>YOUR FIRST LOAN</p>
-    <span class="go">HOW IT WORKS →</span>
-  </button>
-
-  <div class="ovl footer-fix">
-    <div><b>ML Mortgage Corp</b><br>NMLS #362312 | <b>Nadeem Ahmed</b><br>NMLS #1687434</div>
-    <div>Cell: (909) 261-1911<br>Office: (909) 652-0780 ext 223<br>www.mlmortgage.net</div>
-    <div class="r">8280 Aspen St, Rancho<br>Cucamonga, CA 91730<br><span class="stars">★★★★★</span> Highly Rated Broker</div>
+<header class="hero" id="top">
+  <div class="hero-copy">
+    <p class="kicker" data-hero>Nadeem Ahmed &middot; Mortgage Coach &middot; NMLS #1687434</p>
+    <h1 data-hero>Your homeownership journey, <em>tailored.</em></h1>
+    <p class="sub" data-hero>From first pre-approval to final keys, I map every step to your budget, your timeline, and your goals &mdash; so you buy with confidence, not guesswork.</p>
+    <div class="hero-ctas" data-hero>
+      <a class="btn btn-gold" href="#contact">Get pre-approved</a>
+      <a class="btn btn-ghost" href="#loan-paths">Explore loan options</a>
+    </div>
+    <div class="trust" data-hero>
+      <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span>Highly rated broker &middot; ML Mortgage Corp NMLS #362312</span>
+    </div>
   </div>
-</div>
-
-<div id="view-detail">
-  <div class="wrap">
-    <button class="back" id="backBtn">← Back</button>
-    <div class="kicker2">Loan path</div>
-    <h2 id="detailTitle"></h2>
-    <p class="body" id="detailBody"></p>
-    <ul id="detailList"></ul>
-    <a class="btn-gold" href="#">Contact Nadeem</a>
+  <div class="hero-photo" data-hero-photo>
+    <img class="cutout" src="nadeem-walking-cutout.png" alt="Nadeem Ahmed, Mortgage Coach">
+    <div class="float-card fc-rate"><span class="lbl">Freddie Mac 30-yr fixed</span><b>7.40%</b> &middot; Oct 8, 2026</div>
+    <div class="float-card fc-exp"><span class="lbl">Experience</span>Helping families <b>for over a decade</b></div>
+    <div class="float-card fc-nmls"><span class="lbl">Licensed</span>Nadeem Ahmed <b>NMLS #1687434</b></div>
   </div>
-</div>
+</header>
 
-<div class="wipe" id="wipe"><div class="p2"></div><div class="p1"></div></div>
+<section class="block" id="loan-paths">
+  <div class="sec-head reveal">
+    <h2>Pick your <em>loan path</em></h2>
+    <p>Three ways homebuyers work with me &mdash; each one mapped to your budget before you start shopping.</p>
+  </div>
+  <div class="cards">
+    <div class="card reveal">
+      <span class="tag">Purchase</span>
+      <h3>Buy your home</h3>
+      <p>Down payment assistance up to $15K and first-time buyer programs built around what you can actually afford each month.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag">Refinance</span>
+      <h3>Reset your rate</h3>
+      <p>Rate-and-term and cash-out options when the math works in your favor &mdash; never pushed when it doesn't.</p>
+    </div>
+    <div class="card reveal">
+      <span class="tag">2nd Mortgage</span>
+      <h3>Tap your equity</h3>
+      <p>Access the equity you've built without touching your first loan's rate.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="about">
+  <div class="about-grid">
+    <div class="about-photo reveal">
+      <img src="nadeem-walking-cutout.png" alt="Portrait of Nadeem Ahmed">
+    </div>
+    <div class="about-copy reveal">
+      <h2>About your <em>coach</em></h2>
+      <p>Nadeem Ahmed has spent over a decade guiding California families through purchase, refinance, and second-mortgage decisions &mdash; translating loan numbers into plain-English plans.</p>
+      <p>As a licensed Mortgage Loan Originator with ML Mortgage Corp, he maps every loan to the life it has to fit: your budget, your timeline, your goals.</p>
+      <div class="about-facts">
+        <div class="fact"><b>Experience</b>Helping families for over a decade</div>
+        <div class="fact"><b>License</b>Nadeem Ahmed &middot; NMLS #1687434</div>
+        <div class="fact"><b>Company</b>ML Mortgage Corp &middot; NMLS #362312</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="testimonials">
+  <div class="sec-head reveal">
+    <h2>What clients <em>say</em></h2>
+    <p>Sample placeholders below &mdash; real client reviews will replace them before this page goes anywhere public.</p>
+  </div>
+  <div class="t-grid">
+    <div class="t-card reveal">
+      <span class="sample-tag">Sample quote &mdash; replace with real client review</span>
+      <blockquote>&ldquo;He walked us through every number before we signed anything. We showed up to closing calm instead of confused.&rdquo;</blockquote>
+      <cite>Sample client &middot; California</cite>
+    </div>
+    <div class="t-card reveal">
+      <span class="sample-tag">Sample quote &mdash; replace with real client review</span>
+      <blockquote>&ldquo;Called on a Sunday night when our refinance hit a snag. That's who you want in your corner.&rdquo;</blockquote>
+      <cite>Sample client &middot; California</cite>
+    </div>
+    <div class="t-card reveal">
+      <span class="sample-tag">Sample quote &mdash; replace with real client review</span>
+      <blockquote>&ldquo;Two other lenders confused us. Nadeem made the second mortgage simple.&rdquo;</blockquote>
+      <cite>Sample client &middot; California</cite>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="contact-band reveal">
+    <h2>Let's map <em>your</em> path</h2>
+    <p>One conversation. Your budget, your timeline, your options &mdash; in plain English.</p>
+    <div class="contact-rows">
+      <div><span class="lbl">Cell</span><a href="tel:+19092611911">(909) 261-1911</a></div>
+      <div><span class="lbl">Office</span><a href="tel:+19096520780">(909) 652-0780</a> <span style="color:var(--muted);font-size:.85rem">ext 223</span></div>
+      <div><span class="lbl">Web</span><a href="https://mlmortgage.net" target="_blank" rel="noopener">mlmortgage.net</a></div>
+    </div>
+    <a class="btn btn-gold" href="tel:+19092611911">Call Nadeem</a>
+    <p style="margin-top:1.4rem;margin-bottom:0;font-size:.88rem">8280 Aspen St, Rancho Cucamonga, CA 91730</p>
+  </div>
+</section>
+
+<footer>
+  <div>Concept sample site &mdash; not a live business page.</div>
+  <div class="nmls">Nadeem Ahmed NMLS #1687434 &middot; ML Mortgage Corp NMLS #362312</div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 (function(){
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var finePointer = window.matchMedia('(pointer: fine)').matches;
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasGsap = (typeof window.gsap !== 'undefined');
-  var DATA = {
-    purchase: {t:'Purchase', b:'Buying your first home — or your next one — starts with knowing what you can afford. Nadeem maps your payment, down payment, and loan options before you shop.', l:['FHA, conventional, and VA programs','Down payment assistance up to $15K','Pre-approval with a clear payment picture']},
-    refinance: {t:'Refinance', b:'A refinance should have a reason: lower payment, cash out, shorter term. Nadeem runs the break-even math so you decide with numbers, not guesses.', l:['Rate-and-term and cash-out options','Break-even timeline in plain English','No-pressure numbers review']},
-    second: {t:'2nd Mortgage', b:'Need cash without giving up a great first-mortgage rate? A second mortgage or HELOC lets you tap equity while your primary loan stays put.', l:['HELOC and home-equity loan options','Keep your low first-mortgage rate','Clear qualification walkthrough']}
-  };
-  var wipe = document.getElementById('wipe');
-  var stage = document.getElementById('stage');
-  var bleed = document.querySelector('.bleed');
-  var detail = document.getElementById('view-detail');
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- mobile nav ---------- */
+  var burger = document.getElementById('hamburger');
+  var links = document.getElementById('navLinks');
+  if (burger && links) {
+    burger.addEventListener('click', function(){
+      var open = links.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.addEventListener('click', function(e){
+      if (e.target.tagName === 'A') links.classList.remove('open');
+    });
+  }
+
+  /* ---------- Lenis smooth scroll (page scrolls natively now) ---------- */
   var lenis = null;
-
-  /* ---------- motion layer (progressive enhancement; page is complete without it) ---------- */
-
-  // Entrance choreography
-  function playEntrance(done){
-    if (!hasGsap || reduced){
-      if (done) done();
-      return;
-    }
-    var tl = gsap.timeline({defaults:{ease:'power3.out'}, onComplete:done});
-    tl.from('.bleed', {opacity:0, duration:.9}, 0)
-      .from('.glow', {opacity:0, duration:1.4}, .2)
-      .from('.stage', {opacity:0, scale:1.035, duration:1.1}, .1)
-      .from('.ticker', {y:-14, opacity:0, duration:.7}, .55)
-      .from('.tile', {y:26, opacity:0, duration:.7, stagger:.09}, .7)
-      .from('.footer-fix', {y:14, opacity:0, duration:.7}, .95);
+  if (!reduceMotion && typeof window.Lenis !== 'undefined') {
+    try {
+      lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+      function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    } catch (e) { lenis = null; }
   }
 
-  // Magnetic tiles + hero parallax (fine pointers only)
-  function bindPointerMotion(){
-    if (!hasGsap || reduced || !finePointer) return;
-    document.querySelectorAll('.tile').forEach(function(t){
-      var xTo = gsap.quickTo(t, 'x', {duration:.4, ease:'power3'});
-      var yTo = gsap.quickTo(t, 'y', {duration:.4, ease:'power3'});
-      t.addEventListener('mousemove', function(e){
-        var r = t.getBoundingClientRect();
-        xTo(((e.clientX - r.left) / r.width - .5) * 14);
-        yTo(((e.clientY - r.top) / r.height - .5) * 14);
-      });
-      t.addEventListener('mouseleave', function(){ xTo(0); yTo(0); });
+  /* ---------- anchor links play nice with Lenis ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) { lenis.scrollTo(target, { offset: -70 }); }
+      else { target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); }
     });
-    var stX = gsap.quickTo(stage, 'x', {duration:.7, ease:'power2'});
-    var stY = gsap.quickTo(stage, 'y', {duration:.7, ease:'power2'});
-    var blX = gsap.quickTo(bleed, 'x', {duration:.9, ease:'power2'});
-    var blY = gsap.quickTo(bleed, 'y', {duration:.9, ease:'power2'});
-    window.addEventListener('mousemove', function(e){
-      var nx = e.clientX / window.innerWidth - .5;
-      var ny = e.clientY / window.innerHeight - .5;
-      stX(nx * 16); stY(ny * 12);
-      blX(nx * -26); blY(ny * -20);
-    });
-  }
-
-  // Rate sheen (class added by JS so no-JS/reduced-motion keeps the flat gold)
-  if (!reduced){
-    var rateEl = document.querySelector('.ticker strong');
-    if (rateEl) rateEl.classList.add('shimmer');
-  }
-
-  // Lenis smooth scroll for the detail view (the only scrolling surface)
-  function ensureLenis(){
-    if (reduced || typeof window.Lenis === 'undefined') return;
-    try{
-      if (!lenis){
-        lenis = new Lenis({wrapper: detail, autoRaf: true, smoothWheel: true});
-      }
-      lenis.start();
-    }catch(err){ lenis = null; }
-  }
-
-  // Detail content cascade
-  function playDetailEntrance(){
-    if (!hasGsap || reduced) return;
-    gsap.fromTo('#view-detail .wrap > *',
-      {y:18, opacity:0},
-      {y:0, opacity:1, duration:.6, ease:'power3.out', stagger:.06, delay:.08, overwrite:'auto'});
-  }
-
-  playEntrance(bindPointerMotion);
-
-  /* ---------- existing view logic (unchanged behavior) ---------- */
-  function swap(toDetail, data){
-    if (toDetail){
-      document.getElementById('detailTitle').textContent = data.t;
-      document.getElementById('detailBody').textContent = data.b;
-      document.getElementById('detailList').innerHTML = data.l.map(function(x){return '<li>'+x+'</li>';}).join('');
-      detail.classList.add('active'); document.body.style.overflow = 'auto';
-      void detail.offsetWidth;
-      ensureLenis();
-      playDetailEntrance();
-    } else {
-      if (lenis){ try{ lenis.stop(); }catch(err){} }
-      detail.classList.remove('active'); document.body.style.overflow = 'hidden';
-    }
-  }
-  function transition(toDetail, data){
-    if (reduced){ swap(toDetail, data); return; }
-    wipe.classList.remove('run'); void wipe.offsetWidth; wipe.classList.add('run');
-    setTimeout(function(){ swap(toDetail, data); }, 520);
-  }
-  document.querySelectorAll('.tile').forEach(function(t){
-    t.addEventListener('click', function(){ transition(true, DATA[t.dataset.path]); });
   });
-  document.getElementById('backBtn').addEventListener('click', function(){ transition(false); });
+
+  /* ---------- GSAP motion (progressive enhancement) ---------- */
+  if (!hasGsap || reduceMotion) return;
+  if (typeof window.ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+  // Hero entrance
+  var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl.from('.nav', { y: -24, opacity: 0, duration: .7 })
+    .from('[data-hero]', { y: 34, opacity: 0, duration: .8, stagger: .1 }, '-=.35')
+    .from('[data-hero-photo]', { scale: .96, opacity: 0, duration: 1 }, '-=.7')
+    .from('.float-card', { y: 22, opacity: 0, duration: .6, stagger: .12 }, '-=.55');
+
+  // Section reveals
+  if (typeof window.ScrollTrigger !== 'undefined') {
+    gsap.utils.toArray('.reveal').forEach(function(el){
+      gsap.from(el, {
+        y: 30, opacity: 0, duration: .85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+    // Keep Lenis + ScrollTrigger in sync
+    if (lenis) lenis.on('scroll', ScrollTrigger.update);
+  }
+
+  // Subtle magnetic pull on gold CTAs (fine pointers only)
+  if (finePointer) {
+    document.querySelectorAll('.btn-gold').forEach(function(btn){
+      var xTo = gsap.quickTo(btn, 'x', { duration: .35, ease: 'power3' });
+      var yTo = gsap.quickTo(btn, 'y', { duration: .35, ease: 'power3' });
+      btn.addEventListener('pointermove', function(e){
+        var r = btn.getBoundingClientRect();
+        xTo((e.clientX - (r.left + r.width / 2)) * .18);
+        yTo((e.clientY - (r.top + r.height / 2)) * .28);
+      });
+      btn.addEventListener('pointerleave', function(){ xTo(0); yTo(0); });
+    });
+  }
 })();
 </script>
 </body>
