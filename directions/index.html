@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Direction Concepts — Nadeem Ahmed Sample Site</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1220; --navy2:#101a2e; --navy3:#16233d;
+    --gold:#d4a017; --gold2:#f0c94a;
+    --ink:#f6f2e9; --muted:#a8b0c2; --line:rgba(212,160,23,.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--navy);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+  /* ---------- top banner ---------- */
+  .concept-banner{background:linear-gradient(90deg,#7a5c0e,var(--gold),#7a5c0e);color:#14100a;text-align:center;
+    padding:.85rem 1rem;font-weight:800;letter-spacing:.04em;font-size:clamp(.85rem,2.5vw,1rem)}
+  .concept-banner small{display:block;font-weight:600;font-size:.8em;opacity:.75;margin-top:.15rem}
+
+  .page-head{max-width:1100px;margin:0 auto;padding:3rem 1.25rem 1rem;text-align:center}
+  .page-head h1{font-family:"Playfair Display",serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800}
+  .page-head h1 em{color:var(--gold2);font-style:normal}
+  .page-head p{color:var(--muted);max-width:640px;margin:.9rem auto 0;font-size:clamp(.95rem,2.6vw,1.05rem)}
+
+  /* ---------- direction sections ---------- */
+  .direction{max-width:1180px;margin:2.5rem auto;padding:0 1.25rem}
+  .dir-label{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.1rem}
+  .dir-badge{flex:0 0 auto;width:3rem;height:3rem;border-radius:.8rem;background:linear-gradient(135deg,var(--gold),#8a6a10);
+    color:#14100a;font-weight:800;font-size:1.35rem;display:flex;align-items:center;justify-content:center}
+  .dir-label h2{font-size:clamp(1.25rem,3.4vw,1.6rem);font-weight:800}
+  .dir-label h2 span{color:var(--gold2)}
+  .dir-label p{color:var(--muted);font-size:.95rem;margin-top:.2rem;max-width:720px}
+
+  .demo{border:1px solid var(--line);border-radius:1.25rem;overflow:hidden;background:var(--navy2);
+    box-shadow:0 30px 80px rgba(0,0,0,.45)}
+  .demo-tag{display:flex;justify-content:space-between;align-items:center;padding:.6rem 1rem;
+    background:rgba(0,0,0,.35);border-bottom:1px solid var(--line);font-size:.75rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted)}
+  .demo-tag i{font-style:normal;color:var(--gold2)}
+
+  /* ---------- shared bits ---------- */
+  .kicker{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2)}
+  .btn{display:inline-block;font-weight:700;font-size:.95rem;border-radius:.7rem;padding:.85rem 1.5rem;
+    text-decoration:none;transition:transform .18s ease,box-shadow .18s ease;cursor:pointer;border:none}
+  .btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#14100a}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,160,23,.35)}
+  .btn-ghost{border:1px solid rgba(246,242,233,.35);color:var(--ink);background:transparent}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--gold2)}
+  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem}
+  .stars{color:var(--gold2);letter-spacing:.15em}
+  .nmls{font-size:.78rem;color:var(--muted)}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(26px)}
+  .reveal.in{opacity:1;transform:none;transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.float{animation:none!important}}
+
+  /* ================= A. SPLIT HERO ================= */
+  .a-hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:560px}
+  .a-copy{padding:clamp(2rem,5vw,4rem);display:flex;flex-direction:column;justify-content:center}
+  .a-copy h3{font-family:"Playfair Display",serif;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.08;margin:.9rem 0;font-weight:800}
+  .a-copy h3 em{color:var(--gold2);font-style:normal}
+  .a-copy p.sub{color:var(--muted);font-size:clamp(.95rem,2.4vw,1.05rem);max-width:44ch}
+  .a-trust{display:flex;align-items:center;gap:.7rem;margin-top:1.6rem;flex-wrap:wrap}
+  .a-trust .who{font-size:.85rem;color:var(--muted)}
+  .a-visual{position:relative;background:radial-gradient(120% 100% at 70% 20%,#243b66 0%,#14233f 45%,#0b1220 100%);
+    overflow:hidden;display:flex;align-items:flex-end;justify-content:center;min-height:420px}
+  .a-visual::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(60% 45% at 50% 75%,rgba(212,160,23,.28),transparent 70%)}
+  .a-visual img.cutout{position:relative;z-index:1;height:92%;max-height:520px;width:auto;object-fit:contain;
+    filter:drop-shadow(0 24px 40px rgba(0,0,0,.5))}
+  .float-card{position:absolute;z-index:2;background:rgba(13,19,32,.92);border:1px solid var(--line);
+    border-radius:.9rem;padding:.7rem .95rem;font-size:.82rem;backdrop-filter:blur(6px);
+    box-shadow:0 14px 34px rgba(0,0,0,.45);animation:floaty 5s ease-in-out infinite}
+  .float-card b{color:var(--gold2)}
+  .float-card .lbl{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+  .fc-rate{top:12%;left:6%}
+  .fc-fam{top:38%;right:5%;animation-delay:-1.6s}
+  .fc-nmls{bottom:10%;left:8%;animation-delay:-3.2s}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* ================= B. PORTRAIT IN TYPE ================= */
+  .b-hero{position:relative;background:linear-gradient(180deg,#0e1626,#0b1220);padding:clamp(2.5rem,6vw,5rem) 1.25rem 0;
+    text-align:center;overflow:hidden;min-height:600px;display:flex;flex-direction:column;align-items:center}
+  .b-kicker{margin-bottom:1rem}
+  .b-type{font-family:"Playfair Display",serif;font-weight:900;line-height:.92;letter-spacing:.01em;
+    font-size:clamp(3.4rem,13vw,10rem);position:relative;z-index:1}
+  .b-type .outline{color:transparent;-webkit-text-stroke:2px rgba(212,160,23,.75)}
+  .b-type .solid{color:var(--ink)}
+  .b-figure{position:relative;z-index:2;margin-top:-9%;width:min(58vw,340px)}
+  .b-figure img{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 50px rgba(0,0,0,.55))}
+  .b-tag{position:relative;z-index:3;margin-top:-4%;max-width:520px}
+  .b-tag p{color:var(--muted);font-size:clamp(.9rem,2.4vw,1rem)}
+  .b-tag .cta-row{justify-content:center;margin-bottom:3rem}
+  .b-nmls{position:relative;z-index:3;padding-bottom:1.6rem}
+
+  /* ================= C. TRUST ANCHOR ================= */
+  .c-hero{background:radial-gradient(90% 120% at 50% 0%,#1a2a4a 0%,#0b1220 60%);text-align:center;
+    padding:clamp(3rem,7vw,5.5rem) 1.25rem}
+  .c-hero h3{font-family:"Playfair Display",serif;font-size:clamp(2rem,5.4vw,3.4rem);font-weight:800;
+    max-width:20ch;margin:.9rem auto;line-height:1.12}
+  .c-hero h3 em{color:var(--gold2);font-style:normal}
+  .c-hero p.sub{color:var(--muted);max-width:56ch;margin:0 auto;font-size:clamp(.95rem,2.5vw,1.05rem)}
+  .c-hero .cta-row{justify-content:center}
+  .c-proof{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem;color:var(--muted);font-size:.85rem}
+  .c-proof b{color:var(--ink)}
+  .c-about{background:#0e1526;border-top:1px solid var(--line);padding:clamp(2rem,5vw,3.5rem) clamp(1.25rem,4vw,3rem)}
+  .c-about-grid{display:grid;grid-template-columns:280px 1fr;gap:2rem;align-items:center;max-width:960px;margin:0 auto}
+  .c-frame{border-radius:1.1rem;overflow:hidden;border:1px solid var(--line);
+    background:linear-gradient(160deg,#243b66,#101a2e);aspect-ratio:3/3.6;display:flex;align-items:flex-end;justify-content:center}
+  .c-frame img{width:88%;height:auto;display:block}
+  .c-about h4{font-family:"Playfair Display",serif;font-size:1.5rem;margin:.4rem 0 .6rem}
+  .c-about .bio{color:var(--muted);font-size:.95rem;max-width:52ch}
+  .c-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.6rem}
+  .c-card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:.9rem;padding:1.1rem;font-size:.88rem}
+  .c-card p{color:#d8d2c2}
+  .c-card .who{margin-top:.7rem;font-size:.76rem;color:var(--muted)}
+  .c-nmls-line{margin-top:1.4rem}
+
+  /* ================= D. CINEMATIC ================= */
+  .d-hero{position:relative;min-height:600px;display:flex;align-items:center;overflow:hidden}
+  .d-hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 20%}
+  .d-hero::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(8,12,22,.94) 0%,rgba(8,12,22,.78) 38%,rgba(8,12,22,.25) 70%,rgba(8,12,22,.15) 100%)}
+  .d-copy{position:relative;z-index:1;padding:clamp(2.5rem,6vw,5rem);max-width:640px}
+  .d-copy h3{font-family:"Playfair Display",serif;font-size:clamp(2.2rem,5.6vw,3.8rem);line-height:1.06;
+    margin:.9rem 0;font-weight:800}
+  .d-copy h3 em{color:var(--gold2);font-style:normal}
+  .d-copy p.sub{color:#cfd6e4;font-size:clamp(.95rem,2.5vw,1.08rem);max-width:44ch}
+  .d-scroll{position:absolute;z-index:1;bottom:1.2rem;left:50%;transform:translateX(-50%);color:var(--muted);
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+  .d-scroll::after{content:"";width:1px;height:34px;background:linear-gradient(var(--gold2),transparent);animation:cue 1.8s ease-in-out infinite}
+  @keyframes cue{0%,100%{opacity:.4}50%{opacity:1}}
+  .d-peek{background:var(--navy);padding:2.5rem clamp(1.25rem,4vw,3rem);border-top:1px solid var(--line)}
+  .d-peek h4{font-size:1.15rem;font-weight:800;margin-bottom:1.1rem}
+  .d-peek h4 span{color:var(--gold2)}
+  .d-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:960px}
+  .d-tile{background:var(--navy2);border:1px solid var(--line);border-radius:.9rem;padding:1.2rem}
+  .d-tile b{display:block;margin-bottom:.35rem;color:var(--gold2);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+  .d-tile p{font-size:.88rem;color:var(--muted)}
+
+  .page-foot{max-width:1100px;margin:0 auto;padding:2.5rem 1.25rem 3.5rem;text-align:center;color:var(--muted);font-size:.85rem}
+  .page-foot a{color:var(--gold2)}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:760px){
+    .a-hero{grid-template-columns:1fr}
+    .a-visual{min-height:380px;order:-1}
+    .a-visual img.cutout{max-height:360px}
+    .fc-rate{top:8%;left:4%}.fc-fam{top:34%;right:4%}.fc-nmls{bottom:6%;left:5%}
+    .c-about-grid{grid-template-columns:1fr;max-width:420px}
+    .c-cards{grid-template-columns:1fr}
+    .d-tiles{grid-template-columns:1fr}
+    .d-hero img.bg{object-position:62% 20%}
+    .d-hero::after{background:linear-gradient(180deg,rgba(8,12,22,.55) 0%,rgba(8,12,22,.88) 55%,rgba(8,12,22,.96) 100%)}
+    .d-copy{padding-top:7rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-banner">
+  Concept demos &mdash; 4 hero directions. Not the live sample.
+  <small>Internal review only &middot; pick a direction and we rebuild from there</small>
+</div>
+
+<header class="page-head">
+  <h1>Four ways to put <em>Nadeem</em> on the page</h1>
+  <p>Each direction below uses the same brand, the same photo assets, and real copy. Scroll through, compare the feel, and choose the one that looks like a professional mortgage site &mdash; not a poster.</p>
+</header>
+
+<!-- ============ DIRECTION A ============ -->
+<section class="direction" id="dir-a">
+  <div class="dir-label">
+    <div class="dir-badge">A</div>
+    <div>
+      <h2>Split hero <span>&mdash; message and portrait, side by side</span></h2>
+      <p>Classic professional layout: the pitch on the left, Nadeem on the right floating over a brand panel with live proof cards. Clear hierarchy, one glance tells the whole story.</p>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo-tag"><span>Direction A &middot; Split hero</span><i>desktop / mobile responsive</i></div>
+    <div class="a-hero">
+      <div class="a-copy reveal">
+        <div class="kicker">Nadeem Ahmed &middot; Mortgage Coach &middot; NMLS #1687434</div>
+        <h3>Your homeownership journey, <em>tailored.</em></h3>
+        <p class="sub">From first pre-approval to final keys, I map every step to your budget, your timeline, and your goals &mdash; so you buy with confidence, not guesswork.</p>
+        <div class="cta-row">
+          <a class="btn btn-gold" href="#dir-a" onclick="return false">Get pre-approved</a>
+          <a class="btn btn-ghost" href="#dir-a" onclick="return false">Explore loan options</a>
+        </div>
+        <div class="a-trust">
+          <span class="stars" aria-label="5 star rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="who">Highly rated broker &middot; ML Mortgage Corp NMLS #362312</span>
+        </div>
+      </div>
+      <div class="a-visual reveal">
+        <img class="cutout" src="../nadeem-walking-cutout.png" alt="Nadeem Ahmed, Mortgage Coach">
+        <div class="float-card fc-rate"><span class="lbl">Freddie Mac 30-yr fixed</span><b>7.40%</b> &middot; Oct 8, 2026</div>
+        <div class="float-card fc-fam"><span class="lbl">Families guided</span><b>500+</b> and counting</div>
+        <div class="float-card fc-nmls"><span class="lbl">Licensed</span>Nadeem Ahmed <b>NMLS #1687434</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIRECTION B ============ -->
+<section class="direction" id="dir-b">
+  <div class="dir-label">
+    <div class="dir-badge">B</div>
+    <div>
+      <h2>Portrait woven into type <span>&mdash; editorial, magazine-cover energy</span></h2>
+      <p>Oversized display typography with Nadeem layered into the letterforms. Distinctive and premium &mdash; the kind of hero people remember.</p>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo-tag"><span>Direction B &middot; Portrait in type</span><i>desktop / mobile responsive</i></div>
+    <div class="b-hero">
+      <div class="kicker b-kicker reveal">Nadeem Ahmed &middot; NMLS #1687434 &middot; ML Mortgage Corp</div>
+      <div class="b-type reveal" aria-label="Nadeem, Mortgage Coach">
+        <div class="outline">NADEEM</div>
+        <div class="solid">MORTGAGE</div>
+        <div class="outline">COACH</div>
+      </div>
+      <div class="b-figure reveal">
+        <img src="../nadeem-walking-cutout.png" alt="Nadeem Ahmed, Mortgage Coach">
+      </div>
+      <div class="b-tag reveal">
+        <p>The coach behind 500+ confident homebuyers. Purchase, refinance, and second mortgages &mdash; mapped to your budget.</p>
+        <div class="cta-row">
+          <a class="btn btn-gold" href="#dir-b" onclick="return false">Start your pre-approval</a>
+        </div>
+        <div class="nmls b-nmls">Nadeem Ahmed NMLS #1687434 &middot; ML Mortgage Corp NMLS #362312</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIRECTION C ============ -->
+<section class="direction" id="dir-c">
+  <div class="dir-label">
+    <div class="dir-badge">C</div>
+    <div>
+      <h2>Photo as trust anchor <span>&mdash; message first, face where it counts</span></h2>
+      <p>The hero sells the outcome with zero photo clutter. Nadeem appears below in an &ldquo;About your coach&rdquo; band beside testimonials &mdash; the face shows up exactly where the trust decision happens.</p>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo-tag"><span>Direction C &middot; Trust anchor</span><i>hero + about band shown</i></div>
+    <div class="c-hero">
+      <div class="kicker reveal">Home loans, explained in plain English</div>
+      <h3 class="reveal">7.40% &mdash; <em>what does that mean for your payment?</em></h3>
+      <p class="sub reveal">Rates move. Your plan shouldn&rsquo;t wobble with them. Get a clear monthly number for your budget before you start shopping.</p>
+      <div class="cta-row reveal">
+        <a class="btn btn-gold" href="#dir-c" onclick="return false">Estimate my payment</a>
+      </div>
+      <div class="c-proof reveal"><span><b>500+</b> families guided</span><span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b> rated broker</span><span><b>20+</b> loan programs</span></div>
+    </div>
+    <div class="c-about">
+      <div class="c-about-grid">
+        <div class="c-frame reveal">
+          <img src="../nadeem-walking-cutout.png" alt="Nadeem Ahmed, Mortgage Coach">
+        </div>
+        <div class="reveal">
+          <div class="kicker">About your coach</div>
+          <h4>Nadeem Ahmed</h4>
+          <p class="bio">Licensed Mortgage Loan Originator with ML Mortgage Corp. I walk first-time buyers through every document, every number, and every deadline &mdash; in plain English, with no surprises at closing.</p>
+          <div class="c-cards">
+            <div class="c-card"><p>&ldquo;Nadeem explained every number before we signed anything. We walked into closing calm.&rdquo;</p><div class="who">First-time buyer &middot; Rancho Cucamonga</div></div>
+            <div class="c-card"><p>&ldquo;He answered on a Sunday night when our refinance hit a snag. That&rsquo;s who you want in your corner.&rdquo;</p><div class="who">Refinance client &middot; Fontana</div></div>
+            <div class="c-card"><p>&ldquo;Two other lenders confused us. Nadeem made the second mortgage simple.&rdquo;</p><div class="who">Homeowner &middot; Ontario</div></div>
+          </div>
+          <div class="nmls c-nmls-line">Nadeem Ahmed NMLS #1687434 &middot; ML Mortgage Corp NMLS #362312</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIRECTION D ============ -->
+<section class="direction" id="dir-d">
+  <div class="dir-label">
+    <div class="dir-badge">D</div>
+    <div>
+      <h2>Cinematic full-bleed, done right <span>&mdash; drama with readable text</span></h2>
+      <p>Keeps the big photo, but a gradient scrim makes real HTML text readable on top &mdash; and actual page sections continue below, so it reads as a website, not a poster.</p>
+    </div>
+  </div>
+  <div class="demo">
+    <div class="demo-tag"><span>Direction D &middot; Cinematic full-bleed</span><i>desktop / mobile responsive</i></div>
+    <div class="d-hero">
+      <img class="bg" src="../mockup.jpg" alt="Nadeem Ahmed in a marble doorway">
+      <div class="d-copy reveal">
+        <div class="kicker">Nadeem Ahmed &middot; Mortgage Coach &middot; NMLS #1687434</div>
+        <h3>Your homeownership journey, <em>tailored.</em></h3>
+        <p class="sub">Purchase, refinance, and second mortgages &mdash; mapped to your budget, your timeline, and your goals.</p>
+        <div class="cta-row">
+          <a class="btn btn-gold" href="#dir-d" onclick="return false">Get pre-approved</a>
+          <a class="btn btn-ghost" href="#dir-d" onclick="return false">See loan paths</a>
+        </div>
+      </div>
+      <div class="d-scroll">Scroll</div>
+    </div>
+    <div class="d-peek">
+      <h4 class="reveal">Loan paths <span>&mdash; pick yours</span></h4>
+      <div class="d-tiles">
+        <div class="d-tile reveal"><b>Purchase</b><p>Down payment assistance up to $15K and programs built for first-time buyers.</p></div>
+        <div class="d-tile reveal"><b>Refinance</b><p>Rate-and-term and cash-out options when the math works in your favor.</p></div>
+        <div class="d-tile reveal"><b>2nd mortgage</b><p>Tap your equity without touching your first loan&rsquo;s rate.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="page-foot">
+  Concept demos for internal review &mdash; not the live sample.<br>
+  Nadeem Ahmed NMLS #1687434 &middot; ML Mortgage Corp NMLS #362312
+</footer>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  },{threshold:0.12});
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>
